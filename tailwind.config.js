@@ -11,9 +11,18 @@ export default {
         xl: '1500px',
       },
       colors: {
-        primary: '#7D0A7F',
+        primary: '#684EA0',
+        sec:'#ED1B35',
         dark:'#0A0F15'
       }
+    },
+    screens: {
+      xs: "376px",
+      ss: "768px",
+      sm: "900px",
+      md: "1024px",
+      lg: "1200px",
+      xl: "1700px",
     },
   },
   plugins: [],
