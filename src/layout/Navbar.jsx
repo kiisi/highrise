@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import logo from '../assets/logo.svg'
 import Button from '../components/Button'
-import dayjs from 'dayjs'
-const Navbar = () => {
+import { Link } from 'react-router-dom'
 
-  const date = dayjs(Date.now()); // Create a dayjs object with the date you want to format
-  const formattedDate = date.format('dddd D MMMM YYYY'); // Format the date using the 'dddd D MMMM YYYY' string format
+
+const Navbar = () => {
 
   const [click, setClick] = useState(false)
 
@@ -14,23 +13,16 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <div className="w-full py-3 bg-[#0A0F15]">
-          <div className="max-w-xl mx-auto px-4 ss:px-8">
-            <div className="text-white">
-              <p>{formattedDate}</p>
-            </div>
-          </div>
-        </div>
         <div className="w-full max-w-xl px-4 ss:px-8 py-4 flex justify-between items-center mx-auto">
           <div>
             <img src={logo} alt="HerCode Logo" className="h-[50px]" />
           </div>
           <div className="items-center gap-x-5 hidden ss:flex cursor-pointer">
-            <a>Home</a>
+            <Link to='/'>Home</Link>
             <a>About</a>
             <a>Contact us</a>
-            <a className="mr-8">Sign up</a>
-            <Button>Login</Button>
+            <Link to="/signup" className="mr-8">Sign up</Link>
+            <Link to="/login"><Button>Login</Button></Link>
           </div>
           <span className="material-icons ss:hidden cursor-pointer" onClick={()=>clickHandler(true)}>menu</span>
         </div>
@@ -50,10 +42,10 @@ const Navbar = () => {
           <a>Contact us</a>
         </div>
         <div className="py-3 pr-3 pl-10 flex">
-          <a>Sign up</a>
+          <Link>Sign up</Link>
         </div>
         <div className="py-3 pr-3 pl-10 flex">
-          <Button>Login</Button>
+          <Link to="/login"><Button>Login</Button></Link>
         </div>
       </aside>
 

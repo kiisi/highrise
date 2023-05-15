@@ -3,15 +3,28 @@ import Footer from "../layout/Footer"
 import hero_img from '../assets/hero.svg'
 import Button from "../components/Button"
 import how_it_works_img from '../assets/howitworks.svg'
+import { Link } from "react-router-dom"
+import dayjs from 'dayjs'
 
 const Home = () => {
+
+    const date = dayjs(Date.now()); // Create a dayjs object with the date you want to format
+    const formattedDate = date.format('dddd D MMMM YYYY'); // Format the date using the 'dddd D MMMM YYYY' string format
+
     return (
         <>
+            <div className="w-full py-3 bg-[#0A0F15]">
+                <div className="max-w-xl mx-auto px-4 ss:px-8">
+                    <div className="text-white">
+                        <p>{formattedDate}</p>
+                    </div>
+                </div>
+            </div>
             <Navbar />
             <Hero />
             <Services />
-            <Pricing/>
-            <HowItWorks/>
+            <Pricing />
+            <HowItWorks />
             <Footer />
         </>
     )
@@ -26,7 +39,7 @@ const Hero = () => {
             <div className="max-w-[40rem] mt-14">
                 <h1 className="text-[36px] ss:text-[55px] font-bold">Highrise <span className="text-sec">News</span>paper</h1>
                 <p className="my-4 text-[18px] ss:text-[20px]">With HighRise you can now apply for change of names, apply affidavit for declaration of age loss of documents etc from your bed!!!</p>
-                <Button className="mt-5">Get Started</Button>
+                <Link to="/signup"><Button className="mt-5">Get Started</Button></Link>
             </div>
             <div>
                 <img src={hero_img} alt="Hero" />
@@ -38,7 +51,7 @@ const Hero = () => {
 
 const service_data = [
     {
-        icon:'fa-solid fa-id-card',
+        icon: 'fa-solid fa-id-card',
         title: 'CHANGE OF NAMES',
         text: 'You can now apply for change of names and obtain approved documents'
     },
@@ -48,12 +61,12 @@ const service_data = [
         text: 'Apply for loss of documents request now and obtain an affidavit'
     },
     {
-        icon:'fa fa-bullhorn',
+        icon: 'fa fa-bullhorn',
         title: 'PUBLIC NOTICE',
         text: 'Start your public notice by signing up and filling the forms on your dashboard'
     },
     {
-        icon:'fa-solid fa-circle-check',
+        icon: 'fa-solid fa-circle-check',
         title: 'AFFIDAVIT ONLINE (in-view)',
         text: 'Click on the start button and select request for affidavit and get a signed affidavit'
     },
@@ -88,23 +101,23 @@ const Services = () => {
 const pricing_data = [
     {
         service: 'Loss of Documents',
-        price:'7,500'
+        price: '7,500'
     },
     {
         service: 'Change of Names',
-        price:'5,000'
+        price: '5,000'
     },
     {
         service: 'Company Trustees',
-        price:'15,000'
+        price: '15,000'
     }
 ]
-const Pricing = () =>{
+const Pricing = () => {
 
     return (
         <section className="max-w-xl px-4 ss:px-8 mx-auto px-8 py-[5rem]">
             <header className="mb-16 text-center max-w-[35rem] mx-auto">
-            <h2 className="text-[24px] text-sec font-bold">Do It Yourself</h2>
+                <h2 className="text-[24px] text-sec font-bold">Do It Yourself</h2>
                 <h1 className="text-[32px] ss:text-[40px] text-primary font-bold">Our Price Lists</h1>
                 <p className="text-[18px] ss:text-[20px]">Feel free to choose the one that best suits your context and purpose.</p>
             </header>
@@ -139,7 +152,7 @@ const hwt_data = [
     "Click on the verify button above to verify."
 ]
 
-const HowItWorks = () =>{
+const HowItWorks = () => {
 
     return (
         <section className="max-w-xl px-4 ss:px-8 mx-auto px-8 pt-[5rem] pb-[10rem]">
@@ -149,12 +162,12 @@ const HowItWorks = () =>{
             </header>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 items-center">
                 <figure>
-                    <img src={how_it_works_img} alt="How it works"/>
+                    <img src={how_it_works_img} alt="How it works" />
                 </figure>
                 <div>
                     <ul>
                         {
-                            hwt_data.map((d, i)=>(
+                            hwt_data.map((d, i) => (
                                 <li key={i} className="text-[17px] ss:text-[20px] flex gap-x-5 mb-5">
                                     <i className="ph-fill ph-seal-check text-2xl ss:text-3xl
                                 font-bold"></i> {d}</li>
