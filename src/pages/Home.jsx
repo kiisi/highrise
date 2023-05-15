@@ -10,6 +10,7 @@ const Home = () => {
             <Navbar />
             <Hero />
             <Services />
+            <Pricing/>
             <HowItWorks/>
             <Footer />
         </>
@@ -21,10 +22,10 @@ export default Home
 const Hero = () => {
 
     return (
-        <header className="py-[5rem] px-8 max-w-xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-y-10 gap-x-10 justify-between">
-            <div className="max-w-[40rem] mt-20">
-                <h1 className="text-[55px] font-bold">Highrise <span className="text-sec">News</span>paper</h1>
-                <p className="my-4 text-[20px]">With HighRise you can now apply for change of names, apply affidavit for declaration of age loss of documents etc from your bed!!!</p>
+        <header className="py-[5rem] px-4 ss:px-8 max-w-xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-y-10 gap-x-10 justify-between">
+            <div className="max-w-[40rem] mt-14">
+                <h1 className="text-[36px] ss:text-[55px] font-bold">Highrise <span className="text-sec">News</span>paper</h1>
+                <p className="my-4 text-[18px] ss:text-[20px]">With HighRise you can now apply for change of names, apply affidavit for declaration of age loss of documents etc from your bed!!!</p>
                 <Button className="mt-5">Get Started</Button>
             </div>
             <div>
@@ -61,15 +62,15 @@ const service_data = [
 const Services = () => {
 
     return (
-        <section className="max-w-xl mx-auto px-8 py-[5rem]">
+        <section className="px-4 ss:px-8 max-w-xl mx-auto px-8 py-[5rem]">
             <header className="mb-16 text-center max-w-[35rem] mx-auto">
-                <h1 className="text-center text-[40px] text-primary font-bold">Our Services</h1>
-                <p className="text-[20px]">Our aim is to provide you with standard service delivery in a courteous and timely mannner</p>
+                <h1 className="text-center text-[32px] ss:text-[40px] text-primary font-bold">Our Services</h1>
+                <p className="text-[18px] ss:text-[20px]">Our aim is to provide you with standard service delivery in a courteous and timely mannner</p>
             </header>
             <div className="grid grid-cols-1 ss:grid-cols-2 gap-x-5 gap-y-5 mx-auto max-w-[55rem]">
                 {
                     service_data.map((d, i) => (
-                        <article key={i} className="p-[2rem] rounded-[5px] border-[1px] border-[#666] grid place-items-center text-center bg-[#f8f8f8]">
+                        <article key={i} className="p-[2rem] rounded-[5px] border-[1px] hover:border-[#666] grid place-items-center text-center bg-[#f8f8f8]">
                             <div><i className={`${d?.icon} text-[32px] text-primary`}></i></div>
                             <div>
                                 <h1 className="font-bold text-[17px] my-3">{d.title}</h1>
@@ -79,6 +80,50 @@ const Services = () => {
                     ))
                 }
 
+            </div>
+        </section>
+    )
+}
+
+const pricing_data = [
+    {
+        service: 'Loss of Documents',
+        price:'7,500'
+    },
+    {
+        service: 'Change of Names',
+        price:'5,000'
+    },
+    {
+        service: 'Company Trustees',
+        price:'15,000'
+    }
+]
+const Pricing = () =>{
+
+    return (
+        <section className="max-w-xl px-4 ss:px-8 mx-auto px-8 py-[5rem]">
+            <header className="mb-16 text-center max-w-[35rem] mx-auto">
+                <h1 className="text-[32px] ss:text-[40px] text-primary font-bold">Our Price Lists</h1>
+                <p className="text-[18px] ss:text-[20px]">Feel free to choose the one that best suits your context and purpose.</p>
+            </header>
+            <div className="flex flex-col ss:flex-row gap-x-5 gap-y-8 mx-auto max-w-[60rem]">
+                {
+                    pricing_data.map((d, i) => (
+                        <article key={i} className="text-center bg-[#f8f8f8] w-full max-w-[300px] mx-auto">
+                            <h1 className="font-bold text-[17px] my-3 py-2 ">{d.service}</h1>
+                            <h2 className="text-[36px] my-4 font-semibold text-primary">₦{d.price}</h2>
+                            <button className="py-2 w-full px-2 mt-3 text-center text-white bg-primary hover:bg-[#310077] rounded-[4px]">Purchase</button>
+                        </article>
+                    ))
+                }
+            </div>
+            <div className="pt-16">
+                <h1 className="text-[28px] text-center text-sec mb-2">Call for Enquires</h1>
+                <div className="max-w-max mx-auto flex gap-x-3 gap-y-3 flex-wrap text-center justify-center">
+                    <p>Lagos: <a href="tel:+2348155544323" className="hover:text-primary font-semibold">08155544323</a></p>
+                    <p>Awka: <a href="tel:+2348162776543" className="hover:text-primary font-semibold">08162776543</a></p>
+                </div>
             </div>
         </section>
     )
@@ -96,10 +141,10 @@ const hwt_data = [
 const HowItWorks = () =>{
 
     return (
-        <section className="max-w-xl mx-auto px-8 py-[5rem]">
+        <section className="max-w-xl px-4 ss:px-8 mx-auto px-8 pt-[5rem] pb-[10rem]">
             <header className="mb-16 text-center max-w-[35rem] mx-auto">
-                <h1 className="text-[40px] text-primary font-bold">HOW IT WORKS</h1>
-                <p className="text-[20px]">Follow the rubric below to maximize your understanding and usage of the website&rsquo;s features</p>
+                <h1 className="text-[32px] ss:text-[40px] text-primary font-bold">How It Works</h1>
+                <p className="text-[18px] ss:text-[20px]">Follow the rubric below to maximize your understanding and usage of the website&rsquo;s features</p>
             </header>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 items-center">
                 <figure>

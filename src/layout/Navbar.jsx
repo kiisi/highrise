@@ -10,15 +10,13 @@ const Navbar = () => {
   return (
     <nav>
       <div className="w-full py-2 bg-[#0A0F15]">
-        <div className="max-w-xl mx-auto px-8">
-          <div className="text-white flex items-center">
-            <p>Classified Adverts</p>
-            <div className="bg-white h-[20px] w-[2px] mx-2"></div>
+        <div className="max-w-xl mx-auto px-4 ss:px-8">
+          <div className="text-white">
             <p>{formattedDate}</p>
           </div>
         </div>
       </div>
-        <div className="w-full max-w-xl px-8 py-4 flex justify-between items-center mx-auto">
+        <div className="w-full max-w-xl px-4 ss:px-8 py-4 flex justify-between items-center mx-auto">
             <div>
                 <img src={logo} alt="HerCode Logo" className="h-[50px]"/>
             </div>
