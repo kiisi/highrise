@@ -1,0 +1,7 @@
+.navbar-mobile-sidebar{
+    right:-300px;
+    transition: 150ms ease-in;
+}
+.navbar-mobile-sidebar.active{
+    right:0;
+}

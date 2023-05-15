@@ -36,7 +36,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <aside className={`fixed transition ease-in-out max-w-[300px] w-full h-full bg-white ${click ? "right-0" : "right-[-300px]"} top-0 z-[99999]`}>
+      <aside className={`fixed max-w-[300px] w-full h-full bg-white navbar-mobile-sidebar ${click ? "active" : ""} top-0 z-[99999]`}>
         <div className="p-4 flex justify-end">
           <span className="material-icons" onClick={()=>clickHandler(false)}>close</span>
         </div>
