@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Button from "../components/Button"
 import Input from "../components/Input"
 import Navbar from "../layout/Navbar"
@@ -13,11 +14,11 @@ const Login = () => {
             <p>SIGN UP WITH HIGHRISE NEWSPAPER , VIEW YOUR DASHBOARD AND SELECT, THEN CLICK ON  YOUR PREFARED ADVERT REQUEST TO FILL THE ISSUED FORMS</p>
           </div>
 
-          <div className="">
+          <div className="flex-1">
             <header className="mb-16">
               <h1 className="text-[36px] font-bold text-primary">Welcome Once Back</h1>
             </header>
-            <form>
+            <form className="max-w-[30rem]">
               <fieldset className="mb-10">
                 <Input type="email" label="Email"/>
               </fieldset>
@@ -25,6 +26,7 @@ const Login = () => {
                 <Input type="password" label="Password"/>
               </fieldset>
               <Button>Get Started</Button>
+              <p className="mt-5">Don&rsquo;t have an account? <Link className="text-primary" to='/signup'>Signup</Link></p>
             </form>
           </div>
 
