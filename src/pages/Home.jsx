@@ -50,11 +50,11 @@ const service_data = [
     {
         icon:'fa fa-bullhorn',
         title: 'PUBLIC NOTICE',
-        text: 'Start your public notice by selecting the location and fill the forms provided'
+        text: 'Start your public notice by signing up and filling the forms on your dashboard'
     },
     {
         icon:'fa-solid fa-circle-check',
-        title: 'AFFIDAVIT REQUEST',
+        title: 'AFFIDAVIT ONLINE (in-view)',
         text: 'Click on the start button and select request for affidavit and get a signed affidavit'
     },
 ]
@@ -104,13 +104,14 @@ const Pricing = () =>{
     return (
         <section className="max-w-xl px-4 ss:px-8 mx-auto px-8 py-[5rem]">
             <header className="mb-16 text-center max-w-[35rem] mx-auto">
+            <h2 className="text-[24px] text-sec font-bold">Do It Yourself</h2>
                 <h1 className="text-[32px] ss:text-[40px] text-primary font-bold">Our Price Lists</h1>
                 <p className="text-[18px] ss:text-[20px]">Feel free to choose the one that best suits your context and purpose.</p>
             </header>
             <div className="flex flex-col ss:flex-row gap-x-5 gap-y-8 mx-auto max-w-[60rem]">
                 {
                     pricing_data.map((d, i) => (
-                        <article key={i} className="text-center bg-[#f8f8f8] w-full max-w-[300px] mx-auto">
+                        <article key={i} className="text-center bg-[#f8f8f8] w-full max-w-[300px] mx-auto box-shadow">
                             <h1 className="font-bold text-[17px] my-3 py-2 ">{d.service}</h1>
                             <h2 className="text-[36px] my-4 font-semibold text-primary">₦{d.price}</h2>
                             <button className="py-2 w-full px-2 mt-3 text-center text-white bg-primary hover:bg-[#310077] rounded-[4px]">Purchase</button>

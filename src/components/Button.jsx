@@ -2,7 +2,7 @@
 
 const Button = (props) => {
   return (
-    <button className={`bg-primary px-10 py-2.5 rounded-md text-white ${props.className}`}>{props.children}</button>
+    <button className={`bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077] ${props.className}`}>{props.children}</button>
   )
 }
 
