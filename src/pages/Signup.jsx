@@ -2,8 +2,31 @@ import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import Navbar from '../layout/Navbar'
+import google_icon from '../assets/google.svg'
+import { useState } from 'react'
+import { useGoogleLogin } from '@react-oauth/google';
+
 
 const Signup = () => {
+
+  // eslint-disable-next-line no-unused-vars
+  const [profile, setProfile] = useState(null);
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      console.log(tokenResponse);
+      const res = await fetch(
+        'https://www.googleapis.com/oauth2/v3/userinfo',
+        { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } },
+      );
+
+      const userInfo = await res.json()
+      console.log(userInfo)
+      setProfile(userInfo)
+    },
+    onError: errorResponse => console.log(errorResponse),
+  });
+
   return (
     <>
       <div className=" min-h-[100vh]">
@@ -20,7 +43,7 @@ const Signup = () => {
               <h1 className="text-[36px] font-bold text-primary">Welcome To Highrise</h1>
               <p className="font-bold">Signup and register your account</p>
             </header>
-            <form className="max-w-[30rem]">
+            <div className="max-w-[30rem]">
               <fieldset className="mb-10">
                 <Input type="text" label="Full Name"/>
               </fieldset>
@@ -32,9 +55,12 @@ const Signup = () => {
               </fieldset>
               <Button>Get Started</Button>
               <p className="mt-5">Already have an account? <Link className="text-primary" to='/login'>Login</Link></p>
-            </form>
+              <button onClick={googleLogin} className="flex mt-5 gap-x-4 items-center box-shadow-1 p-3 rounded-[4px]">
+              <img src={google_icon} alt="Google Sign in" className="!h-[25px]" />
+              <span>Sign up with Google</span>
+            </button>
+            </div>
           </div>
-
         </main>
       </div>
     </>
