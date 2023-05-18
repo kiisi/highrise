@@ -34,8 +34,8 @@ const sidemenuLinks = [
 ]
 const Dashboard = () => {
     return (
-        <div className="min-h-[100%] w-full flex">
-            <aside className="w-full max-w-[260px] h-[100%] dashboard-sidenav flex flex-col pb-[20px]">
+        <div className="min-h-[100vh] w-full flex">
+            <aside className="w-full max-w-[260px] min-h-[100%] dashboard-sidenav flex flex-col pb-[20px]">
                 <div className="p-4 flex items-center gap-x-4 bg-[#214162]">
                     <figure>
                         <img src={profile_pic} alt="Profile" className="h-[75px] w-[75px] rounded-[50%]" />
@@ -71,8 +71,12 @@ const Dashboard = () => {
                 </div>
             </aside>
             <div className="flex-1">
-                <nav className="h-[100px] w-full bg-[#aaa]">
-
+                <nav className="p-3 w-full bg-[#15283C] flex">
+                    <ul className="flex gap-x-3 max-w-max ml-auto">
+                        <li href="#" className="text-white relative h-[25px] w-[25px]"><i className="fa fa-bell-o text-[20px] p-1"></i><span className="notification-badge">2</span></li>
+                        <li href="#" className="text-white relative h-[25px] w-[25px]"><i className="fa fa-question-circle text-[20px] p-1"></i></li>
+                        <li href="#" className="text-white relative h-[25px] w-[25px]"><i className="fa fa-envelope-o text-[20px] p-1"></i><span className="notification-badge">2</span></li>
+                    </ul>
                 </nav>
                 <main>
 
