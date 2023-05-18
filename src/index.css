@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Mulish:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
 
 @tailwind base;
 @tailwind components;
@@ -43,6 +44,7 @@ body,
 
 button{
   outline:none;
+  /* color:#c0c1c4; */
 }
 
 .notification-badge {
@@ -58,4 +60,12 @@ button{
   font-weight: 600;
   width: 19px;
   height: 19px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }
