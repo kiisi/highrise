@@ -55,7 +55,7 @@ const Login = () => {
             <fieldset className="mb-10">
               <Input type="password" label="Password" />
             </fieldset>
-            <Button>Get Started</Button>
+            <Button>Login</Button>
 
             <p className="mt-5">Don&rsquo;t have an account? <Link className="text-primary" to='/signup'>Signup</Link></p>
 
