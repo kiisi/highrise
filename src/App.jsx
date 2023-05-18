@@ -7,7 +7,8 @@ import Home from './pages/Home'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import UpdateProfile from './pages/UpdateProfile';
 
 
 
@@ -35,8 +36,12 @@ const router = createBrowserRouter([
   </GoogleOAuthProvider>
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />
+    path: "/profile",
+    element: <Profile />
+  },
+  {
+    path: "/update-profile",
+    element: <UpdateProfile />
   },
 ]);
 

@@ -15,11 +15,6 @@
   -webkit-text-size-adjust: 100%;
 }
 
-html,
-body,
-#root{
-  min-height:100vh;
-}
 
 *,
 *::before,
@@ -27,6 +22,27 @@ body,
   margin:0;
   padding:0;
   box-sizing:border-box;
+}
+
+.page-scaffold{
+  overflow-y: auto;
+}
+
+.dashboard-sidenav-scaffold{
+  overflow-y:auto;
+}
+
+.dashboard-sidenav-scaffold::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dashboard-sidenav-scaffold::-webkit-scrollbar-track {
+  background-color: #cccccc;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #684EA0;
+  border-radius: 2px;
 }
 
 .box-shadow:hover{
