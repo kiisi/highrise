@@ -7,22 +7,22 @@ const sidemenuLinks = [
     {
         icon: 'fa-solid fa-id-card',
         title: 'Change Of Names',
-        to: '/'
+        to: '/change-of-name'
     },
     {
         icon: 'fa fa-newspaper-o',
         title: 'Loss Of Documents',
-        to: '/'
+        to: '/loss-of-docs'
     },
     {
         icon: 'fa fa-bullhorn',
         title: 'Public Notice',
-        to: '/'
+        to: '/public-notice'
     },
     {
         icon: 'fa-solid fa-circle-check',
         title: 'Affidavit Online',
-        to: '/'
+        to: '/affidavit'
     },
 ]
 const Dashboard = ({ children }) => {
