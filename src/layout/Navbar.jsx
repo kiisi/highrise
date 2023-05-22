@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import logo from '../assets/logo.svg'
 import Button from '../components/Button'
 import { Link } from 'react-router-dom'
@@ -10,9 +10,23 @@ const Navbar = () => {
 
   const clickHandler = (val) => setClick(val)
 
+  const navRef = useRef()
+
+  useEffect(()=>{
+    const sticky = navRef.current.offsetTop
+
+    window.onscroll = () =>{
+      if (window.scrollY >= sticky) {
+        navRef.current.classList.add("sticky-navbar")
+      } else {
+        navRef.current.classList.remove("sticky-navbar");
+      }
+    }
+  },[])
+
   return (
     <>
-      <nav>
+      <nav ref={navRef}>
         <div className="w-full max-w-xl px-4 ss:px-8 py-4 flex justify-between items-center mx-auto">
           <div>
             <img src={logo} alt="HerCode Logo" className="h-[50px]" />

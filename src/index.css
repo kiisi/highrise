@@ -118,3 +118,12 @@ input[type="radio"]:checked + .captcha__quiz--options__btn--radio .captcha__quiz
 .hr-radio-gender:checked + .hr-radio-btn::before{
   transform:scale(1)
 }
+.sticky-navbar{
+  position:fixed;
+  top:0;
+  background-color:#fff;
+  width:100%;
+}
+.sticky-navbar ~ .hero-section{
+  padding-top:calc(5rem + 82px);
+}
