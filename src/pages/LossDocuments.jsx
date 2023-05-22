@@ -70,62 +70,58 @@ const LossDocuments = () => {
                 </header>
                 <section className="pt-[50px] pr-[35px] pb-[22px] pl-[38px]">
                     <div className="bg-[#fff] p-10">
-                        <div className="grid grid-cols-2 gap-x-5 gap-y-10">
-                            <fieldset className="max-w-[400px]">
+                        <div className="flex flex-wrap gap-x-10 gap-y-10">
+                            <fieldset className="max-w-[400px] w-full">
                                 <Input label="Full name" type="text" />
                             </fieldset>
-                            <fieldset className="max-w-[400px]">
+                            <fieldset className="max-w-[400px] w-full">
                                 <Input label="Email" type="email" />
                             </fieldset>
-                            <fieldset className="max-w-[400px]">
+                            <fieldset className="max-w-[400px] w-full">
                                 <Input label="Amount (₦)" type="number" />
                             </fieldset>
                         </div>
-                        <div className="grid grid-cols-2 gap-x-5 gap-y-10 mt-16">
-                            <fieldset>
+                        <div className="flex flex-wrap gap-x-10 gap-y-10 mt-16">
+                            <fieldset className="max-w-[400px] w-full">
                                 <h1>Marriage certificate</h1>
-                                <div className="flex gap-x-5 pt-2">
-                                    <div className="rounded-xl flex p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
+                                    <div className="rounded-xl mt-2 flex p-2 gap-x-2 items-center border-[1px] border-primary w-full">
                                         <label htmlFor="marriage-certificate" name="marriage-certificate" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
                                         <input type="file" className="hidden" id="marriage-certificate" onChange={(e) =>  fileInputHandler(e, "marriage")}/>
                                         <span className="whitespace-nowrap truncate">{state.marriage ? state.marriage.name : "No files currently selected" }</span>
                                     </div>
-                                </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset className="max-w-[400px] w-full">
                                 <h1>Passport photograph</h1>
-                                <div className="flex gap-x-5 pt-2">
-                                    <div className="rounded-xl flex p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
+                                    <div className="rounded-xl mt-2 flex p-2 gap-x-2 items-center border-[1px] border-primary w-full">
                                         <label htmlFor="passport-photograph" name="passport-photograph" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
                                         <input type="file" className="hidden" id="passport-photograph" onChange={(e) =>  fileInputHandler(e, "passport")}/>
                                         <span className="whitespace-nowrap truncate">{state.passport ? state.passport.name : "No files currently selected" }</span>
                                     </div>
-                                </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset className="max-w-[400px] w-full">
                                 <h1>Birth certificate</h1>
-                                <div className="flex gap-x-5 pt-2">
-                                    <div className="rounded-xl flex p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
+                                <div className="flex gap-x-10 pt-2">
+                                    <div className="rounded-xl flex p-2 gap-x-2 items-center border-[1px] border-primary w-full">
                                         <label htmlFor="birth-certificate" name="birth-certificate" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
                                         <input type="file" className="hidden" id="birth-certificate" onChange={(e) =>  fileInputHandler(e, "birth")}/>
                                         <span className="whitespace-nowrap truncate">{state.birth ? state.birth.name : "No files currently selected" }</span>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset className="max-w-[400px] w-full">
                                 <h1>Affidavit</h1>
-                                <div className="flex gap-x-5 pt-2">
-                                    <div className="rounded-xl flex p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
+                                <div className="flex gap-x-10 pt-2">
+                                    <div className="rounded-xl flex p-2 gap-x-2 items-center border-[1px] border-primary w-full">
                                         <label htmlFor="affidavit" name="affidavit" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
                                         <input type="file" className="hidden" id="affidavit" onChange={(e) =>  fileInputHandler(e, "affidavit")}/>
                                         <span className="whitespace-nowrap truncate">{state.affidavit ? state.affidavit.name : "No files currently selected" }</span>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset className="max-w-[400px] w-full">
                                 <h1>Identification(NIN,Voters Card,Driving licence)</h1>
-                                <div className="flex gap-x-5 pt-2">
-                                    <div className="rounded-xl flex p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
+                                <div className="flex gap-x-10 pt-2">
+                                    <div className="rounded-xl flex p-2 gap-x-2 items-center border-[1px] border-primary w-full">
                                         <label htmlFor="identification" name="identification" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
                                         <input type="file" className="hidden" id="identification" onChange={(e) =>  fileInputHandler(e, "identification")}/>
                                         <span className="whitespace-nowrap truncate">{state.identification ? state.identification.name : "No files currently selected" }</span>
@@ -134,7 +130,7 @@ const LossDocuments = () => {
                             </fieldset>
                         </div>
 
-                        <div className="flex pr-14 pt-2"><Button className="mt-14 ml-auto">Next</Button></div>
+                        <Button className="mt-14 ml-1">Next</Button>
                     </div>
                 </section>
             </main>
