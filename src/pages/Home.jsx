@@ -8,29 +8,37 @@ import dayjs from 'dayjs'
 
 const Home = () => {
 
-    const date = dayjs(Date.now()); // Create a dayjs object with the date you want to format
-    const formattedDate = date.format('dddd D MMMM YYYY'); // Format the date using the 'dddd D MMMM YYYY' string format
-
     return (
         <>
-            <div className="w-full py-3 bg-[#0A0F15]">
-                <div className="max-w-xl mx-auto px-4 ss:px-8">
-                    <div className="text-white">
-                        <p>{formattedDate}</p>
-                    </div>
-                </div>
-            </div>
+            <Time/>
             <Navbar />
             <Hero />
             <Services />
             <Pricing />
             <HowItWorks />
+            <Chat/>
             <Footer />
         </>
     )
 }
 
 export default Home
+
+const Time = () =>{
+
+    const date = dayjs(Date.now()); // Create a dayjs object with the date you want to format
+    const formattedDate = date.format('dddd D MMMM YYYY'); // Format the date using the 'dddd D MMMM YYYY' string format
+
+    return (
+        <div className="w-full py-3 bg-[#0A0F15]">
+                <div className="max-w-xl mx-auto px-4 ss:px-8">
+                    <div className="text-white">
+                        <p>{formattedDate}</p>
+                    </div>
+                </div>
+            </div>
+    )
+}
 
 const Hero = () => {
 
@@ -177,5 +185,15 @@ const HowItWorks = () => {
                 </div>
             </div>
         </section>
+    )
+}
+
+
+const Chat = () =>{
+
+    return (
+        <button className="h-[50px] w-[50px] bg-primary grid place-items-center rounded-[50%] fixed bottom-[2%] right-[2%] box-shadow">
+            <span className="material-icons text-white"> chat </span>
+        </button>
     )
 }
