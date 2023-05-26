@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import profile_pic from '../assets/profile-pics.svg'
-
+import { base_endpoint } from '../utils/endpoints'
+import { useUserContext } from '../context/userContext'
 
 const sidemenuLinks = [
     {
@@ -26,6 +27,25 @@ const sidemenuLinks = [
     },
 ]
 const Dashboard = ({ children }) => {
+
+    const navigate = useNavigate()
+
+    const { state } = useUserContext()
+
+    const logout = async () => {
+
+    try {
+      const res = await fetch(`${base_endpoint}/auth/logout`, { credentials: 'include' })
+      const result = await res.json()
+      if (result.success) {
+        console.log(result)
+        return navigate('/')
+      }
+    }catch (err) {
+      console.log(err)
+    }
+  }
+
     return (
         <div className="h-[100vh] w-full flex bg-[#f8f8f8]">
             <aside className="w-full max-w-[260px] h-[100vh] dashboard-sidenav flex flex-col pb-[20px] dashboard-sidenav-scaffold">
@@ -34,7 +54,7 @@ const Dashboard = ({ children }) => {
                         <img src={profile_pic} alt="Profile" className="h-[75px] w-[75px] rounded-[50%]" />
                     </figure>
                     <figcaption>
-                        <h1 className="text-white font-bold">Terasa May</h1>
+                        <h1 className="text-white font-bold">{state.user.full_name}</h1>
                     </figcaption>
                 </div>
                 <div className="pt-8 pb-2 px-6 border-primary border-b-2">
@@ -65,7 +85,7 @@ const Dashboard = ({ children }) => {
                             <span>Profile Settings</span>
                         </button>
                     </Link>
-                    <button className="py-3 px-6 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] mr-[20px] w-full">
+                    <button onClick={logout} className="py-3 px-6 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] mr-[20px] w-full">
                         <span className="material-icons">logout</span>
                         <span>Logout</span>
                     </button>

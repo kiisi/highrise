@@ -5,18 +5,22 @@ import Button from "../components/Button"
 import how_it_works_img from '../assets/howitworks.svg'
 import { Link } from "react-router-dom"
 import dayjs from 'dayjs'
+import { Helmet } from "react-helmet"
 
 const Home = () => {
 
     return (
         <>
-            <Time/>
+            <Helmet>
+                <title>Highrise</title>
+            </Helmet>
+            <Time />
             <Navbar />
             <Hero />
             <Services />
             <Pricing />
             <HowItWorks />
-            <Chat/>
+            <Chat />
             <Footer />
         </>
     )
@@ -24,19 +28,19 @@ const Home = () => {
 
 export default Home
 
-const Time = () =>{
+const Time = () => {
 
     const date = dayjs(Date.now()); // Create a dayjs object with the date you want to format
     const formattedDate = date.format('dddd D MMMM YYYY'); // Format the date using the 'dddd D MMMM YYYY' string format
 
     return (
         <div className="w-full py-3 bg-[#0A0F15]">
-                <div className="max-w-xl mx-auto px-4 ss:px-8">
-                    <div className="text-white">
-                        <p>{formattedDate}</p>
-                    </div>
+            <div className="max-w-xl mx-auto px-4 ss:px-8">
+                <div className="text-white">
+                    <p>{formattedDate}</p>
                 </div>
             </div>
+        </div>
     )
 }
 
@@ -189,7 +193,7 @@ const HowItWorks = () => {
 }
 
 
-const Chat = () =>{
+const Chat = () => {
 
     return (
         <button className="h-[50px] w-[50px] bg-primary grid place-items-center rounded-[50%] fixed bottom-[2%] right-[2%] box-shadow">

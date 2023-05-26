@@ -1,8 +1,14 @@
 import Input from '../components/Input'
+import { useUserContext } from '../context/userContext'
 import Dashboard from '../layout/Dashboard'
 
 
 const Profile = () => {
+
+    const { state } = useUserContext()
+
+    const fullName = state.user.full_name
+    const email = state.user.email
 
     return (
         <Dashboard>
@@ -14,13 +20,13 @@ const Profile = () => {
                     <div className="bg-[#fff] p-10">
                         <div className="grid grid-cols-2 gap-x-5 gap-y-10">
                             <fieldset className="max-w-[400px]">
-                                <Input label="Full name" type="text" readOnly={true}/>
+                                <Input label="Full name" type="text" readOnly={true} value={fullName}/>
                             </fieldset>
                             <fieldset className="max-w-[400px]">
-                                <Input label="Address" type="text" readOnly={true}/>
+                                <Input label="Address" type="text" readOnly={true} />
                             </fieldset>
                             <fieldset className="max-w-[400px]">
-                                <Input label="Email" type="text" readOnly={true}/>
+                                <Input label="Email" type="text" readOnly={true} value={email}/>
                             </fieldset>
                             <fieldset className="max-w-[400px]">
                                 <Input label="Age" type="number" readOnly={true}/>

@@ -1,6 +1,7 @@
 import './App.css'
 import {
   createBrowserRouter,
+  redirect,
   RouterProvider,
 } from "react-router-dom"
 import Home from './pages/Home'
@@ -14,13 +15,51 @@ import LossDocuments from './pages/LossDocuments';
 import PublicNotice from './pages/PublicNotice';
 import Affidavit from './pages/Affidavit';
 import VerifyAccount from './pages/VerifyAccount';
+import Auth from './hoc/Auth';
+import { base_endpoint } from './utils/endpoints';
 
-
+const loaderFunc = async () => {
+  const settings = {
+    credentials: 'include',
+    headers: {
+      "Content-Type": "application/json",
+    }
+  };
+  try {
+    const res = await fetch(`${base_endpoint}/auth/verify-user`, settings)
+    const data = await res.json()
+    if (data.success) {
+      return redirect('/profile')
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  return null
+}
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <Home />,
+    loader: async () => {
+      const settings = {
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json",
+        }
+      };
+      try {
+        const res = await fetch(`${base_endpoint}/auth/verify-user`, settings)
+        const data = await res.json()
+        if (data.success) {
+          return true
+        }
+      } catch (err) {
+        console.log(err)
+        return false
+      }
+      return false
+    }
   },
   {
     path: "/login",
@@ -30,43 +69,48 @@ const router = createBrowserRouter([
       >
         <Login />
       </GoogleOAuthProvider>
-    )
+    ),
+    loader: loaderFunc
   },
   {
     path: "/signup",
-    element: <GoogleOAuthProvider
-    clientId="563446519928-207jhmp7apj04ocfr7qqm7rbqpfbuvki.apps.googleusercontent.com"
-  >
-    <Signup />
-  </GoogleOAuthProvider>
+    element: (
+      <GoogleOAuthProvider
+        clientId="563446519928-207jhmp7apj04ocfr7qqm7rbqpfbuvki.apps.googleusercontent.com"
+      >
+        <Signup />
+      </GoogleOAuthProvider>
+    ),
+    loader: loaderFunc
   },
   {
     path: "/verify-account",
-    element: <VerifyAccount />
+    element: <VerifyAccount />,
+    loader: loaderFunc
   },
   {
     path: "/profile",
-    element: <Profile />
+    element: <Auth><Profile /></Auth>
   },
   {
     path: "/update-profile",
-    element: <UpdateProfile />
+    element: <Auth><UpdateProfile /></Auth>
   },
   {
     path: "/change-of-name",
-    element: <ChangeName />
+    element: <Auth><ChangeName /></Auth>
   },
   {
     path: "/loss-of-docs",
-    element: <LossDocuments />
+    element: <Auth><LossDocuments /></Auth>
   },
   {
     path: "/public-notice",
-    element: <PublicNotice />
+    element: <Auth><PublicNotice /></Auth>
   },
   {
     path: "/affidavit",
-    element: <Affidavit />
+    element: <Auth><Affidavit /></Auth>
   },
 ]);
 

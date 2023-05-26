@@ -7,6 +7,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { useRef, useState } from 'react'
 import { base_endpoint } from "../utils/endpoints"
 import Spinner from "../components/Spinner"
+import {Helmet} from "react-helmet";
 
 const Login = () => {
 
@@ -46,6 +47,7 @@ const Login = () => {
 
     const settings = {
       method: "post",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
@@ -53,7 +55,7 @@ const Login = () => {
     };
 
     setLoading(true)
-    
+
     try{
 
       let response = await fetch(url, settings)
@@ -73,6 +75,9 @@ const Login = () => {
 
   return (
     <div className="min-h-[100vh]">
+      <Helmet>
+        <title>Highrise Login</title>
+      </Helmet>
       <Navbar />
       {loading ? <Spinner/> : null}
       <main className="flex pt-16 pb-16 gap-x-16 px-4 ss:px-8 mx-auto max-w-xl page-offset">
