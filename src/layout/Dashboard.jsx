@@ -34,17 +34,17 @@ const Dashboard = ({ children }) => {
 
     const logout = async () => {
 
-    try {
-      const res = await fetch(`${base_endpoint}/auth/logout`, { credentials: 'include' })
-      const result = await res.json()
-      if (result.success) {
-        console.log(result)
-        return navigate('/')
-      }
-    }catch (err) {
-      console.log(err)
+        try {
+            const res = await fetch(`${base_endpoint}/auth/logout`, { credentials: 'include' })
+            const result = await res.json()
+            if (result.success) {
+                console.log(result)
+                return navigate('/')
+            }
+        } catch (err) {
+            console.log(err)
+        }
     }
-  }
 
     return (
         <div className="h-[100vh] w-full flex bg-[#f8f8f8]">

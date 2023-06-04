@@ -1,0 +1,105 @@
+import Input from "../components/Input"
+import { useUserContext } from "../context/userContext"
+import Dashboard from "../layout/Dashboard"
+import { PaystackButton } from "react-paystack"
+import { base_endpoint } from "../utils/endpoints"
+import Button from "../components/Button"
+import { useNavigate } from "react-router-dom"
+
+const Payment = () => {
+
+    const navigate = useNavigate()
+    const { state } = useUserContext()
+
+    const logout = async () => {
+
+        try {
+            const res = await fetch(`${base_endpoint}/auth/logout`, { credentials: 'include' })
+            const result = await res.json()
+            if (result.success) {
+                return navigate('/login')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    if(!state.service || !state.service.amount){
+        return (
+            <main className="min-h-[100vh] w-full py-5 px-6 grid place-items-center">
+                <section className="max-w-[450px] w-full design-bg rounded-xl p-4">
+                    <header>
+                        <h1 className="text-white text-center font-bold text-[24px]">Highrise</h1>
+                    </header> 
+                    <div className="py-8">
+                        <h1 className="text-white text-center font-bold text-[50px]">404</h1>
+                    </div>      
+                    <p className="text-white mb-4 text-center">You are logged in as <span className="font-bold">{state.user.email}</span></p>
+                    <div className="flex">
+                        <Button className="mx-auto" onClick={logout}>Sign in as a different user</Button>
+                    </div>
+                </section>
+            </main>
+        )
+    }
+
+    const email = state.user.email
+    const amount = state.service.amount * 100
+    const name = state.user.full_name
+    const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
+
+    const componentProps = {
+        email,
+        amount,
+        metadata: {
+            name
+        },
+        publicKey,
+        text: "Pay Now",
+        onSuccess: () =>{
+            (async()=>{
+                const res = await fetch(`${base_endpoint}/payment/checkout/change-of-name`,{
+                    method:"post",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify({id: state.service.serviceId})
+                }) 
+                const result = await res.json()
+                console.log(result)
+            })()
+        },
+        onClose: () => console.log("Close"),
+    }
+
+
+    return (
+        <Dashboard>
+            <main>
+                <header className="pt-[25px] pr-[35px] pb-[22px] pl-[38px] shadow-[1px_0_5px_#0000001a]">
+                    <h1 className="text-primary text-[24px] font-bold">Highrise Checkout</h1>
+                </header>
+                <section className="pt-[50px] pr-[35px] pb-[22px] pl-[38px]">
+                    <div className="bg-[#fff]">
+                        <div className="flex flex-wrap gap-x-10 gap-y-10">
+                            <fieldset className="max-w-[400px] w-full">
+                                <Input label="Service" type="text" defaultValue="Change Of Name" readOnly={true} />
+                            </fieldset>
+                            <fieldset className="max-w-[400px] w-full">
+                                <Input label="Amount" type="number" defaultValue={amount} readOnly={true} />
+                            </fieldset>
+                            <fieldset className="max-w-[400px] w-full">
+                                <Input label="Email (to receive receipt)" type="email" defaultValue={email} readOnly={true} />
+                            </fieldset>
+                        </div>
+                        <div className="pt-10">
+                        <PaystackButton {...componentProps} className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]"/>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </Dashboard>
+    )
+}
+
+export default Payment

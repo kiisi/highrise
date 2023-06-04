@@ -17,6 +17,8 @@ import Affidavit from './pages/Affidavit';
 import VerifyAccount from './pages/VerifyAccount';
 import Auth from './hoc/Auth';
 import { base_endpoint } from './utils/endpoints';
+import Payment from './pages/Payment';
+import ErrorBoundary from './pages/ErrorBoundary';
 
 const loaderFunc = async () => {
   const settings = {
@@ -32,7 +34,7 @@ const loaderFunc = async () => {
       return redirect('/profile')
     }
   } catch (err) {
-    console.log(err)
+    console.log('')
   }
   return null
 }
@@ -41,7 +43,8 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    loader: async () => {
+    errorElement: <ErrorBoundary />,
+    loader: async () =>{
       const settings = {
         credentials: 'include',
         headers: {
@@ -55,7 +58,6 @@ const router = createBrowserRouter([
           return true
         }
       } catch (err) {
-        console.log(err)
         return false
       }
       return false
@@ -111,6 +113,10 @@ const router = createBrowserRouter([
   {
     path: "/affidavit",
     element: <Auth><Affidavit /></Auth>
+  },
+  {
+    path: "/payment",
+    element: <Auth><Payment/></Auth>,
   },
 ]);
 

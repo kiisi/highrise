@@ -14,6 +14,12 @@ const reducerFunc = (state, action) =>{
                 user: action.payload
             }
         }
+        case "SERVICE":{
+            return {
+                ...state,
+                service: action.payload
+            }
+        }
         default:{
             throw Error("Unknown Action")
         }

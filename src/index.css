@@ -59,6 +59,12 @@
   background-size: cover;
 }
 
+.design-bg{
+  background-image:url("./assets/pattern_h.png");
+  background-color:#15283c;
+  background-size: cover;
+}
+
 button{
   outline:none;
   /* color:#c0c1c4; */
@@ -134,7 +140,7 @@ input[type=number]::-webkit-outer-spin-button {
   width: 6px;
   height: 18px;
   border-radius: 20%;
-  background: #684EA0;
+  background: white;
 }
 .lds-spinner div:nth-child(1) {
   transform: rotate(0deg);
