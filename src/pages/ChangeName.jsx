@@ -6,16 +6,13 @@ import { base_endpoint } from "../utils/endpoints"
 import { useUserContext } from "../context/userContext"
 import { useNavigate } from "react-router-dom"
 import Spinner from '../components/Spinner'
+import { Helmet } from 'react-helmet'
 
 const ChangeName = () => {
 
     const navigate = useNavigate()
     const globalState = useUserContext()
     const [loading, setLoading] = useState(false)
-
-    
-    console.log(globalState)
-
 
     const oldNameRef = useRef()
     const newNameRef = useRef()
@@ -30,7 +27,6 @@ const ChangeName = () => {
         affidavit: null,
         identification: null
     }
-
     const reducerFunc = (state, action) => {
 
         switch (action.type) {
@@ -95,49 +91,49 @@ const ChangeName = () => {
 
         setLoading(true)
 
-        const fetchedPromise = files.map(file =>{
+        const fetchedPromise = files.map(file => {
 
             formData.append("file", file)
 
-            return fetch("https://api.cloudinary.com/v1_1/destinyfelixkiisi/image/upload",{
+            return fetch("https://api.cloudinary.com/v1_1/destinyfelixkiisi/image/upload", {
                 method: "POST",
                 body: formData
             })
-            .then(res => res.json())
-            .catch(err => {
-                console.log(err)
-                setLoading(true)
-            })
+                .then(res => res.json())
+                .catch(err => {
+                    console.log(err)
+                    setLoading(true)
+                })
         })
 
         Promise.all(fetchedPromise)
-        .then(results => {
-            results.forEach((result, i)=>{
-                switch(i){
-                    case 0:{
-                        files_url.passport = result.url
-                        break;
+            .then(results => {
+                results.forEach((result, i) => {
+                    switch (i) {
+                        case 0: {
+                            files_url.passport = result.url
+                            break;
+                        }
+                        case 1: {
+                            files_url.birth = result.url
+                            break
+                        }
+                        case 2: {
+                            files_url.affidavit = result.url
+                            break
+                        }
+                        case 3: {
+                            files_url.identification = result.url
+                            break;
+                        }
+                        default: {
+                            throw Error("Exceeded Limit")
+                        }
                     }
-                    case 1:{
-                        files_url.birth = result.url
-                        break
-                    }
-                    case 2:{
-                        files_url.affidavit = result.url
-                        break
-                    }
-                    case 3:{
-                        files_url.identification = result.url
-                        break;
-                    }
-                    default:{
-                        throw Error("Exceeded Limit")
-                    }
-                }
-            })
+                })
 
-            // Send request to backend server
-            const data = {
+                // Send request to backend server
+                const data = {
                     user: globalState.state.user._id,
                     old_name: oldName,
                     new_name: newName,
@@ -148,39 +144,44 @@ const ChangeName = () => {
                     ...files_url
                 }
 
-            const settings = {
-                method: "post",
-                headers: {
-                    "Content-Type":"application/json"
-                },
-                body: JSON.stringify(data)
-            }
+                const settings = {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                }
 
-            fetch(url, settings)
-            .then(res => res.json())
-            .then(result => {
-                globalState.dispatch({type: "SERVICE", payload: {
-                    type: "Change Of Name",
-                    amount: amount,
-                    serviceId: result.data._id
-                }})
-                navigate('/payment')
+                fetch(url, settings)
+                    .then(res => res.json())
+                    .then(result => {
+                        globalState.dispatch({
+                            type: "SERVICE", payload: {
+                                type: "Change Of Name",
+                                amount: amount,
+                                serviceId: result.data._id
+                            }
+                        })
+                        navigate('/payment')
+                    })
+                    .catch(err => {
+                        setLoading(true)
+                        console.log(err)
+                    })
             })
             .catch(err => {
                 setLoading(true)
                 console.log(err)
             })
-        })
-        .catch(err =>{
-            setLoading(true)
-            console.log(err)
-        })
     }
 
     return (
         <Dashboard>
-            { loading ? <Spinner/> : null}
+            {loading ? <Spinner /> : null}
             <main>
+                <Helmet>
+                    <title>Highrise - Change Of Name</title>
+                </Helmet>
                 <header className="pt-[25px] pr-[35px] pb-[22px] pl-[38px] shadow-[1px_0_5px_#0000001a]">
                     <h1 className="text-primary text-[24px] font-bold">Change Of Name Registration Form</h1>
                 </header>

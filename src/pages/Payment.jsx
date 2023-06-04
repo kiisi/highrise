@@ -5,6 +5,8 @@ import { PaystackButton } from "react-paystack"
 import { base_endpoint } from "../utils/endpoints"
 import Button from "../components/Button"
 import { useNavigate } from "react-router-dom"
+import { Helmet } from "react-helmet"
+
 
 const Payment = () => {
 
@@ -27,6 +29,9 @@ const Payment = () => {
     if(!state.service || !state.service.amount){
         return (
             <main className="min-h-[100vh] w-full py-5 px-6 grid place-items-center">
+                <Helmet>
+                    <title>Highrise - Page not found</title>
+                </Helmet>
                 <section className="max-w-[450px] w-full design-bg rounded-xl p-4">
                     <header>
                         <h1 className="text-white text-center font-bold text-[24px]">Highrise</h1>
@@ -44,13 +49,13 @@ const Payment = () => {
     }
 
     const email = state.user.email
-    const amount = state.service.amount * 100
+    const amount = state.service.amount
     const name = state.user.full_name
     const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
 
     const componentProps = {
         email,
-        amount,
+        amount: amount * 100,
         metadata: {
             name
         },
@@ -76,6 +81,9 @@ const Payment = () => {
     return (
         <Dashboard>
             <main>
+                <Helmet>
+                    <title>Highrise Checkout</title>
+                </Helmet>
                 <header className="pt-[25px] pr-[35px] pb-[22px] pl-[38px] shadow-[1px_0_5px_#0000001a]">
                     <h1 className="text-primary text-[24px] font-bold">Highrise Checkout</h1>
                 </header>

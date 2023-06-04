@@ -2,6 +2,7 @@ import Dashboard from "../layout/Dashboard"
 import Input from '../components/Input'
 import Button from '../components/Button'
 import { useReducer } from 'react'
+import { Helmet } from 'react-helmet'
 
 const Affidavit = () => {
 
@@ -63,6 +64,9 @@ const Affidavit = () => {
     return (
         <Dashboard>
             <main>
+                <Helmet>
+                    <title>Highrise - Affidavit</title>
+                </Helmet>
                 <header className="pt-[25px] pr-[35px] pb-[22px] pl-[38px] shadow-[1px_0_5px_#0000001a]">
                     <h1 className="text-primary text-[24px] font-bold">Swear Of Affidavit (in-view)</h1>
                 </header>
