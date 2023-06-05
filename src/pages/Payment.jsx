@@ -4,7 +4,7 @@ import Dashboard from "../layout/Dashboard"
 import { PaystackButton } from "react-paystack"
 import { base_endpoint } from "../utils/endpoints"
 import Button from "../components/Button"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet"
 
 
@@ -39,7 +39,7 @@ const Payment = () => {
                     <div className="py-8">
                         <h1 className="text-white text-center font-bold text-[50px]">404</h1>
                     </div>      
-                    <p className="text-white mb-4 text-center">You are logged in as <span className="font-bold">{state.user.email}</span></p>
+                    <p className="text-white mb-4 text-center">You are logged in as <Link className="font-bold hover:text-[#C99AF7] cursor-pointer" to="/profile">{state.user.email}</Link></p>
                     <div className="flex">
                         <Button className="mx-auto" onClick={logout}>Sign in as a different user</Button>
                     </div>
@@ -50,6 +50,8 @@ const Payment = () => {
 
     const email = state.user.email
     const amount = state.service.amount
+    const serviceType = state.service.type
+    const serviceRoute = state.service.route
     const name = state.user.full_name
     const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
 
@@ -63,7 +65,7 @@ const Payment = () => {
         text: "Pay Now",
         onSuccess: () =>{
             (async()=>{
-                const res = await fetch(`${base_endpoint}/payment/checkout/change-of-name`,{
+                const res = await fetch(`${base_endpoint}/payment/checkout/${serviceRoute}`,{
                     method:"post",
                     headers:{
                         "Content-Type":"application/json"
@@ -91,7 +93,7 @@ const Payment = () => {
                     <div className="bg-[#fff]">
                         <div className="flex flex-wrap gap-x-10 gap-y-10">
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Service" type="text" defaultValue="Change Of Name" readOnly={true} />
+                                <Input label="Service" type="text" defaultValue={serviceType} readOnly={true} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="Amount" type="number" defaultValue={amount} readOnly={true} />

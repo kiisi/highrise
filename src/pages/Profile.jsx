@@ -9,6 +9,9 @@ const Profile = () => {
 
     const fullName = state.user.full_name
     const email = state.user.email
+    const phone_number = state.phone_number || "Not Provided"
+    const address = state.address || "Not Provided"
+    const age = state.age || "Not Provided"
 
     return (
         <Dashboard>
@@ -26,16 +29,16 @@ const Profile = () => {
                                 <Input label="Full name" type="text" readOnly={true} defaultValue={fullName}/>
                             </fieldset>
                             <fieldset className="max-w-[400px]">
-                                <Input label="Address" type="text" readOnly={true} />
+                                <Input label="Address" type="text" readOnly={true} defaultValue={address} />
                             </fieldset>
                             <fieldset className="max-w-[400px]">
                                 <Input label="Email" type="text" readOnly={true} defaultValue={email}/>
                             </fieldset>
                             <fieldset className="max-w-[400px]">
-                                <Input label="Age" type="number" readOnly={true}/>
+                                <Input label="Age" type="text" readOnly={true} defaultValue={age} />
                             </fieldset>
                             <fieldset className="max-w-[400px]">
-                                <Input label="Phone Number" type="number" readOnly={true}/>
+                                <Input label="Phone Number" type="text" readOnly={true} defaultValue={phone_number} />
                             </fieldset>
                         </div>
                     </div>

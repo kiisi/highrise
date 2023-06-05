@@ -1,10 +1,23 @@
 import Dashboard from "../layout/Dashboard"
 import Input from '../components/Input'
 import Button from '../components/Button'
-import { useReducer } from 'react'
+import { useReducer, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { useNavigate } from "react-router-dom"
+import { useUserContext } from "../context/userContext"
+import Spinner from "../components/Spinner"
+import { base_endpoint } from "../utils/endpoints"
 
 const PublicNotice = () => {
+
+    const navigate = useNavigate()
+    const globalState = useUserContext()
+    const [loading, setLoading] = useState(false)
+
+    const fullNameRef = useRef()
+    const emailRef = useRef()
+    const numberRef = useRef()
+    const amountRef = useRef()
 
     const initState = {
         marriage: null,
@@ -60,8 +73,123 @@ const PublicNotice = () => {
     }
 
     
+    const submit = async () => {
 
-    console.log(state)
+        let fullName = fullNameRef.current.value
+        let email = emailRef.current.value
+        let amount = amountRef.current.value
+        let number = numberRef.current.value
+
+        if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification) {
+            return console.log("All Fields are required!")
+        }
+
+        const files = [state.marriage, state.passport, state.birth, state.affidavit, state.identification]
+        const files_url = {}
+        const formData = new FormData()
+        formData.append("upload_preset", "highrise")
+        formData.append("cloud_name", "destinyfelixkiisi")
+        formData.append("folder", "highrise")
+
+        // Start loading spinner
+
+        setLoading(true)
+
+        const fetchedPromise = files.map(file => {
+
+            formData.append("file", file)
+
+            return fetch("https://api.cloudinary.com/v1_1/destinyfelixkiisi/image/upload", {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .catch(err => {
+                    console.log(err)
+                    setLoading(false)
+                })
+        })
+
+        Promise.all(fetchedPromise)
+            .then(results => {
+                results.forEach((result, i) => {
+                    switch (i) {
+                        case 0: {
+                            files_url.marriage = result.url
+                            break;
+                        }
+                        case 1: {
+                            files_url.passport = result.url
+                            break;
+                        }
+                        case 2: {
+                            files_url.birth = result.url
+                            break
+                        }
+                        case 3: {
+                            files_url.affidavit = result.url
+                            break
+                        }
+                        case 4: {
+                            files_url.identification = result.url
+                            break;
+                        }
+                        default: {
+                            throw Error("Exceeded Limit")
+                        }
+                    }
+                })
+
+                // Send request to backend server
+                const data = {
+                    user: globalState.state.user._id,
+                    full_name: fullName,
+                    phone_number: number,
+                    amount: amount,
+                    email: email,
+                    ...files_url
+                }
+
+                const settings = {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                }
+
+                let url = `${base_endpoint}/documents/public-notice/uploads`
+
+                fetch(url, settings)
+                    .then(res => res.json())
+                    .then(result => {
+                        console.log(result)
+                        if(result.success){
+                            globalState.dispatch({
+                                type: "SERVICE", payload: {
+                                    type: "Loss Of Documents",
+                                    amount: amount,
+                                    serviceId: result.data._id,
+                                    route: 'public-notice'
+                                }
+                            })
+                            return navigate('/payment')
+
+                        }else{
+                            setLoading(false)
+                        }
+                        
+                    })
+                    .catch(err => {
+                        setLoading(false)
+                        console.log(err)
+                    })
+            })
+            .catch(err => {
+                setLoading(false)
+                console.log(err)
+            })
+    }
 
     return (
         <Dashboard>
@@ -69,6 +197,7 @@ const PublicNotice = () => {
                 <title>Highrise - Public Notice</title>
             </Helmet>
             <main>
+                {loading ? <Spinner /> : null}
                 <header className="pt-[25px] pr-[35px] pb-[22px] pl-[38px] shadow-[1px_0_5px_#0000001a]">
                     <h1 className="text-primary text-[24px] font-bold">Public Notice</h1>
                 </header>
@@ -76,16 +205,16 @@ const PublicNotice = () => {
                     <div className="bg-[#fff] p-10">
                         <div className="flex flex-wrap gap-x-10 gap-y-10">
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Full name" type="text" />
+                                <Input label="Full name" type="text" ref={fullNameRef} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Email" type="email" />
+                                <Input label="Email" type="email" ref={emailRef} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Phone number" type="number" />
+                                <Input label="Phone number" type="number" ref={numberRef} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Amount (₦)" type="number" />
+                                <Input label="Amount (₦)" type="number" ref={amountRef} readOnly={true} defaultValue={15000}/>
                             </fieldset>
                         </div>
                         <div className="flex flex-wrap gap-x-10 gap-y-10 mt-16">
@@ -131,7 +260,7 @@ const PublicNotice = () => {
                             </fieldset>
                         </div>
 
-                        <Button className="mt-14 ml-1">Next</Button>
+                        <Button className="mt-14 ml-1" onClick={submit}>Next</Button>
                     </div>
                 </section>
             </main>

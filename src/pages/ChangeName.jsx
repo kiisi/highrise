@@ -102,7 +102,7 @@ const ChangeName = () => {
                 .then(res => res.json())
                 .catch(err => {
                     console.log(err)
-                    setLoading(true)
+                    setLoading(false)
                 })
         })
 
@@ -155,22 +155,27 @@ const ChangeName = () => {
                 fetch(url, settings)
                     .then(res => res.json())
                     .then(result => {
-                        globalState.dispatch({
-                            type: "SERVICE", payload: {
-                                type: "Change Of Name",
-                                amount: amount,
-                                serviceId: result.data._id
-                            }
-                        })
-                        navigate('/payment')
+                        if(result.success){
+                            globalState.dispatch({
+                                type: "SERVICE", payload: {
+                                    type: "Change Of Name",
+                                    amount: amount,
+                                    serviceId: result.data._id,
+                                    route:'change-of-name'
+                                }
+                            })
+                            return navigate('/payment')
+                        }else{
+                            setLoading(false)
+                        }
                     })
                     .catch(err => {
-                        setLoading(true)
+                        setLoading(false)
                         console.log(err)
                     })
             })
             .catch(err => {
-                setLoading(true)
+                setLoading(false)
                 console.log(err)
             })
     }
