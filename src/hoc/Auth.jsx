@@ -25,7 +25,6 @@ const Auth = ({ children }) =>{
                 const data = await res.json()
                 if(data.success){
                     dispatch({type:"USER", payload: data.data})
-                    console.log(data)
                     setAuth(true)
                 }else{
                     navigate('/login')
