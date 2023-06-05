@@ -17,13 +17,7 @@ const UpdateProfile = () => {
                     <div className="bg-[#fff] p-10">
                         <div className="grid grid-cols-2 gap-x-5 gap-y-10">
                             <fieldset className="max-w-[400px]">
-                                <Input label="Surname" type="text" />
-                            </fieldset>
-                            <fieldset className="max-w-[400px]">
-                                <Input label="First name" type="text" />
-                            </fieldset>
-                            <fieldset className="max-w-[400px]">
-                                <Input label="Other name" type="text" />
+                                <Input label="Full name" type="text" />
                             </fieldset>
                             <fieldset className="max-w-[400px]">
                                 <Input label="Email" type="text" />

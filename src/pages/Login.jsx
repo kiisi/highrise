@@ -7,7 +7,9 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { useRef, useState } from 'react'
 import { base_endpoint } from "../utils/endpoints"
 import Spinner from "../components/Spinner"
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
+import { toast } from 'react-toastify';
+import validator from 'validator';
 
 const Login = () => {
 
@@ -20,13 +22,13 @@ const Login = () => {
    const passwordAuth = () =>{
     submit({
       email:emailRef.current.value,
-      password: passwordRef.current.value
+      password: passwordRef.current.value,
+      auth_type: "password"
     })
   }
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      console.log(tokenResponse);
       const res = await fetch(
         'https://www.googleapis.com/oauth2/v3/userinfo',
         { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } },
@@ -35,13 +37,27 @@ const Login = () => {
       const userInfo = await res.json()
       // Google Auth
       await submit({
-        email:userInfo.email
+        email:userInfo.email,
+        auth_type: "google"
       })
     },
-    onError: errorResponse => console.log(errorResponse),
+    onError: errorResponse => {
+      console.log(errorResponse)
+      toast.error("Google auth failed!")
+    },
   });
 
   const submit = async (body) =>{
+
+    if(!validator.isEmail(body.email)){
+      return toast.error("Invalid Email")
+    }
+
+    if(body.auth_type === "password"){
+      if(body.password.trim() === ''){
+        return toast.error("Password is required!")
+      }
+    }
 
     let url = `${base_endpoint}/auth/login`
 
@@ -63,10 +79,14 @@ const Login = () => {
       setLoading(false)
       console.log(result)
       if(result.success){
+        toast.success(result.success)
         navigate('/profile')
+      }else{
+        toast.error(result.error)
       }
 
     }catch(err){
+      toast.error("An error occurred")
       setLoading(false)
       console.log(err)
     }

@@ -7,7 +7,6 @@
 
 :root {
   font-family: Mulish, system-ui, Avenir, Helvetica, Arial, sans-serif;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -107,12 +106,13 @@ input[type=number]::-webkit-outer-spin-button {
 .hr-radio-gender:checked + .hr-radio-btn::before{
   transform:scale(1)
 }
+
 .sticky-navbar{
   position:fixed;
   top:0;
   background-color:#fff;
   width:100%;
-  z-index:9999;
+  z-index:888;
 }
 .sticky-navbar ~ .page-offset{
   padding-top:calc(5rem + 82px);
@@ -198,3 +198,4 @@ input[type=number]::-webkit-outer-spin-button {
     opacity: 0;
   }
 }
+
