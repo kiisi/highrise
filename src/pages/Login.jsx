@@ -10,10 +10,14 @@ import Spinner from "../components/Spinner"
 import { Helmet } from "react-helmet";
 import { toast } from 'react-toastify';
 import validator from 'validator';
+import { useUserContext } from '../context/userContext'
+import { requestEmailOtp } from "../utils"
+
 
 const Login = () => {
 
   const navigate = useNavigate()
+  const { dispatch } = useUserContext()
 
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -76,15 +80,27 @@ const Login = () => {
 
       let response = await fetch(url, settings)
       let result = await response.json()
+
       setLoading(false)
       console.log(result)
-      if(result.success){
+
+      if(result.success && result.verified_email === true){
+
         toast.success(result.success)
         navigate('/profile')
-      }else{
+
+      }else if(result.error && result.verified_email === false){
+
+        toast.error(result.error)
+        requestEmailOtp({email: result.data.email})
+        dispatch({type: "EMAIL_VERIFICATION", payload: {email: result.data.email}})
+        localStorage.setItem("email-verification", result.data.email)
+        navigate('/verify-account')
+
+      }
+      else{
         toast.error(result.error)
       }
-
     }catch(err){
       toast.error("An error occurred")
       setLoading(false)

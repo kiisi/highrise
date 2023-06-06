@@ -9,10 +9,13 @@ import { base_endpoint } from '../utils/endpoints'
 import Spinner from '../components/Spinner'
 import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify';
+import { requestEmailOtp } from '../utils'
+import { useUserContext } from '../context/userContext'
 
 const Signup = () => {
 
   const navigate = useNavigate()
+  const { dispatch } = useUserContext()
 
   const fullNameRef = useRef()
   const emailRef = useRef()
@@ -74,7 +77,10 @@ const Signup = () => {
 
       if (result.success) {
         toast.success(result.success)
-        navigate('/login')
+        requestEmailOtp({email: result.data.email})
+        dispatch({type: "EMAIL_VERIFICATION", payload: {email: result.data.email}})
+        localStorage.setItem("email-verification", result.data.email)
+        navigate('/verify-account')
       } else {
         toast.error(result.error)
       }
@@ -123,7 +129,7 @@ const Signup = () => {
                 <img src={google_icon} alt="Google Sign in" className="!h-[25px]" />
                 <span>Sign up with Google</span>
               </button>
-              
+
             </div>
           </div>
         </main>

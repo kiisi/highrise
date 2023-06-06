@@ -20,6 +20,12 @@ const reducerFunc = (state, action) =>{
                 service: action.payload
             }
         }
+        case "EMAIL_VERIFICATION":{
+            return {
+                ...state,
+                email_verification: action.payload
+            }
+        }
         default:{
             throw Error("Unknown Action")
         }
