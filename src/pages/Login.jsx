@@ -93,8 +93,7 @@ const Login = () => {
 
         toast.error(result.error)
         requestEmailOtp({email: result.data.email})
-        dispatch({type: "EMAIL_VERIFICATION", payload: {email: result.data.email}})
-        localStorage.setItem("email-verification", result.data.email)
+        dispatch({type: "VERIFICATION_EMAIL", payload: {email: result.data.email}})
         navigate('/verify-account')
 
       }

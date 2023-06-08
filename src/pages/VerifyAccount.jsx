@@ -2,16 +2,15 @@
 import Button from "../components/Button"
 import { useReducer } from 'react'
 import { toast } from 'react-toastify';
-import { base_endpoint } from "../utils/endpoints";
+import { base_mailing_endpoint } from "../utils/endpoints";
 import { useUserContext } from '../context/userContext'
 import { Link, useNavigate } from "react-router-dom";
+import ErrorBoundary from "./ErrorBoundary";
 
 const VerifyAccount = () => {
 
   const navigate = useNavigate()
   const globalState = useUserContext()
-
-  const email = globalState.state.email_verification ? globalState.state.email_verification.email : localStorage.getItem("verification-email")
 
   const initState = {
     firstInput: '',
@@ -58,26 +57,37 @@ const VerifyAccount = () => {
     dispatch({ type, payload: e.target.value })
     e.target?.nextElementSibling?.focus()
   }
-  
-  
+
+  console.log(globalState)
+
+  if (!globalState.state && !localStorage.getItem("verification-email")) {
+      return <ErrorBoundary />
+  }
+  if (!globalState.state.verification_email) {
+    return <ErrorBoundary />
+}
+
+  const email = globalState.state.verification_email.email 
+
+
   const btnDisabled = !state.firstInput || !state.secondInput || !state.thirdInput || !state.fourthInput
-  
+
   const submit = async () => {
 
-    if(!state.firstInput || !state.secondInput || !state.thirdInput || !state.fourthInput){
+    if (!state.firstInput || !state.secondInput || !state.thirdInput || !state.fourthInput) {
       return toast("All inputs are required")
     }
 
     const otp = state.firstInput + state.secondInput + state.thirdInput + state.fourthInput
 
-    let url = `${base_endpoint}/auth/verify-otp`
+    let url = `${base_mailing_endpoint}/auth/verify-otp`
 
     const settings = {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({email, otp}),
+      body: JSON.stringify({ email, otp }),
     };
 
     const res = await fetch(url, settings)
@@ -85,11 +95,11 @@ const VerifyAccount = () => {
 
     console.log(result)
 
-    if(result.success){
+    if (result.success) {
       navigate('/login')
       return toast.success(result.success)
-    }else{
-      return toast.success(result.error)
+    } else {
+      return toast.error(result.error)
     }
 
   }

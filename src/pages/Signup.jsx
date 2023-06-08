@@ -73,13 +73,14 @@ const Signup = () => {
 
       let response = await fetch(url, settings)
       let result = await response.json()
+      console.log(result)
       setLoading(false)
 
       if (result.success) {
         toast.success(result.success)
         requestEmailOtp({email: result.data.email})
-        dispatch({type: "EMAIL_VERIFICATION", payload: {email: result.data.email}})
-        localStorage.setItem("email-verification", result.data.email)
+        dispatch({type: "VERIFICATION_EMAIL", payload: {email: result.data.email}})
+        localStorage.setItem("verification-email", result.data.email)
         navigate('/verify-account')
       } else {
         toast.error(result.error)

@@ -5,38 +5,40 @@ const UserContext = createContext(null)
 
 const initState = null
 
-const reducerFunc = (state, action) =>{
+const reducerFunc = (state, action) => {
 
-    switch(action.type){
-        case "USER":{
+    switch (action.type) {
+        case "USER": {
             return {
                 ...state,
                 user: action.payload
             }
         }
-        case "SERVICE":{
+        case "SERVICE": {
             return {
                 ...state,
                 service: action.payload
             }
         }
-        case "EMAIL_VERIFICATION":{
+        case "VERIFICATION_EMAIL": {
             return {
                 ...state,
-                email_verification: action.payload
+                verification_email: action.payload
             }
         }
-        default:{
+        default: {
             throw Error("Unknown Action")
         }
     }
 }
-export const UserProvider = ({ children }) =>{
+export const UserProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(reducerFunc, initState)
 
+
+
     return (
-        <UserContext.Provider value={{state, dispatch}}>
+        <UserContext.Provider value={{ state, dispatch }}>
             {children}
         </UserContext.Provider>
     )

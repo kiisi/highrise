@@ -88,7 +88,8 @@ const router = createBrowserRouter([
   {
     path: "/verify-account",
     element: <VerifyAccount />,
-    loader: loaderFunc
+    loader: loaderFunc,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "/profile",
