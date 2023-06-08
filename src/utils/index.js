@@ -1,8 +1,8 @@
-import { base_endpoint } from "./endpoints"
+import { base_mailing_endpoint } from "./endpoints"
 
 export const requestEmailOtp = async (body) =>{
 
-    let url = `${base_endpoint}/auth/send-otp`
+    let url = `${base_mailing_endpoint}/auth/send-otp`
 
     const settings = {
       method: "post",

@@ -18,6 +18,7 @@ const PublicNotice = () => {
     const emailRef = useRef()
     const numberRef = useRef()
     const amountRef = useRef()
+    const ninRef = useRef()
 
     const initState = {
         marriage: null,
@@ -79,8 +80,9 @@ const PublicNotice = () => {
         let email = emailRef.current.value
         let amount = amountRef.current.value
         let number = numberRef.current.value
+        let nin = ninRef.current.value
 
-        if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification) {
+        if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
             return console.log("All Fields are required!")
         }
 
@@ -147,6 +149,7 @@ const PublicNotice = () => {
                     phone_number: number,
                     amount: amount,
                     email: email,
+                    nin: nin,
                     ...files_url
                 }
 
@@ -215,6 +218,9 @@ const PublicNotice = () => {
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="Amount (₦)" type="number" ref={amountRef} readOnly={true} defaultValue={15000}/>
+                            </fieldset>
+                            <fieldset className="max-w-[400px] w-full">
+                                <Input label="National Identification Number (NIN)" type="number" min={0} ref={ninRef} />
                             </fieldset>
                         </div>
                         <div className="flex flex-wrap gap-x-10 gap-y-10 mt-16">

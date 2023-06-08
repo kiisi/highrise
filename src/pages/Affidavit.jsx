@@ -18,6 +18,7 @@ const Affidavit = () => {
     const emailRef = useRef()
     const numberRef = useRef()
     const amountRef = useRef()
+    const ninRef = useRef()
 
     const initState = {
         marriage: null,
@@ -72,16 +73,15 @@ const Affidavit = () => {
         dispatch({type: type, payload: e.target.files[0]})
     }
 
-    console.log(state)
-
     const submit = async () => {
 
         let fullName = fullNameRef.current.value
         let email = emailRef.current.value
         let amount = amountRef.current.value
         let number = numberRef.current.value
+        let nin = ninRef.current.value
 
-        if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification) {
+        if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
             return console.log("All Fields are required!")
         }
 
@@ -148,6 +148,7 @@ const Affidavit = () => {
                     phone_number: number,
                     amount: amount,
                     email: email,
+                    nin: nin,
                     ...files_url
                 }
 
@@ -216,6 +217,9 @@ const Affidavit = () => {
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="Amount (₦)" type="number" ref={amountRef} defaultValue={15000} readOnly={true} />
+                            </fieldset>
+                            <fieldset className="max-w-[400px] w-full">
+                                <Input label="National Identification Number (NIN)" type="number" min={0} ref={ninRef} />
                             </fieldset>
                         </div>
                         <div className="flex flex-wrap gap-x-10 gap-y-10 mt-16">

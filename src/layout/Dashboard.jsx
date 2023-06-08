@@ -38,7 +38,6 @@ const Dashboard = ({ children }) => {
             const res = await fetch(`${base_endpoint}/auth/logout`, { credentials: 'include' })
             const result = await res.json()
             if (result.success) {
-                console.log(result)
                 return navigate('/')
             }
         } catch (err) {

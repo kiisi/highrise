@@ -20,6 +20,7 @@ const ChangeName = () => {
     const emailRef = useRef()
     const amountRef = useRef()
     const numberRef = useRef()
+    const ninRef = useRef()
 
     const initState = {
         passport: null,
@@ -73,8 +74,9 @@ const ChangeName = () => {
         let email = emailRef.current.value
         let amount = amountRef.current.value
         let number = numberRef.current.value
+        let nin = ninRef.current.value
 
-        if (!oldName || !newName || !confirmNewName || !email || !amount || !number || !state.passport || !state.birth || !state.affidavit || !state.identification) {
+        if (!oldName || !newName || !confirmNewName || !email || !amount || !number || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
             return console.log("All Fields are required!")
         }
 
@@ -141,6 +143,7 @@ const ChangeName = () => {
                     amount: amount,
                     email: email,
                     phone_number: number,
+                    nin: nin,
                     ...files_url
                 }
 
@@ -210,6 +213,9 @@ const ChangeName = () => {
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="Phone number" type="number" min={0} ref={numberRef} />
+                            </fieldset>
+                            <fieldset className="max-w-[400px] w-full">
+                                <Input label="National Identification Number (NIN)" type="number" min={0} ref={ninRef} />
                             </fieldset>
                         </div>
                         <div className="flex flex-wrap gap-x-10 gap-y-10 mt-16">

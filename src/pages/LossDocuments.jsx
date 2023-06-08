@@ -17,6 +17,7 @@ const LossDocuments = () => {
     const fullNameRef = useRef()
     const emailRef = useRef()
     const amountRef = useRef()
+    const ninRef = useRef()
 
     const initState = {
         marriage: null,
@@ -76,8 +77,9 @@ const LossDocuments = () => {
         let fullName = fullNameRef.current.value
         let email = emailRef.current.value
         let amount = amountRef.current.value
+        let nin = ninRef.current.value
 
-        if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification) {
+        if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
             return console.log("All Fields are required!")
         }
 
@@ -143,6 +145,7 @@ const LossDocuments = () => {
                     full_name: fullName,
                     amount: amount,
                     email: email,
+                    nin: nin,
                     ...files_url
                 }
 
@@ -209,6 +212,9 @@ const LossDocuments = () => {
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="Amount (₦)" type="number" ref={amountRef} readOnly={true} defaultValue={7500}/>
+                            </fieldset>
+                            <fieldset className="max-w-[400px] w-full">
+                                <Input label="National Identification Number (NIN)" type="number" min={0} ref={ninRef} />
                             </fieldset>
                         </div>
                         <div className="flex flex-wrap gap-x-10 gap-y-10 mt-16">
