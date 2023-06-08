@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet'
 import { useNavigate } from "react-router-dom"
 import { useUserContext } from "../context/userContext"
 import Spinner from "../components/Spinner"
+import { toast } from 'react-toastify';
 import { base_endpoint } from "../utils/endpoints"
 
 const Affidavit = () => {
@@ -82,7 +83,7 @@ const Affidavit = () => {
         let nin = ninRef.current.value
 
         if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
-            return console.log("All Fields are required!")
+            return toast.error("All Fields are required!")
         }
 
         const files = [state.marriage, state.passport, state.birth, state.affidavit, state.identification]
@@ -108,6 +109,7 @@ const Affidavit = () => {
                 .catch(err => {
                     console.log(err)
                     setLoading(false)
+                    toast.error("Uploading failed!")
                 })
         })
 
@@ -179,6 +181,7 @@ const Affidavit = () => {
 
                         }else{
                             setLoading(false)
+                            toast.error(result.error)
                         }
                         
                     })

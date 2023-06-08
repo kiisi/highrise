@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { useUserContext } from "../context/userContext"
 import Spinner from "../components/Spinner"
 import { base_endpoint } from "../utils/endpoints"
+import { toast } from 'react-toastify';
 
 const PublicNotice = () => {
 
@@ -83,7 +84,7 @@ const PublicNotice = () => {
         let nin = ninRef.current.value
 
         if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
-            return console.log("All Fields are required!")
+            return toast.error("All Fields are required!")
         }
 
         const files = [state.marriage, state.passport, state.birth, state.affidavit, state.identification]
@@ -109,6 +110,7 @@ const PublicNotice = () => {
                 .catch(err => {
                     console.log(err)
                     setLoading(false)
+                    toast.error("Uploading failed!")
                 })
         })
 

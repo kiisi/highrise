@@ -7,6 +7,8 @@ import Spinner from "../components/Spinner"
 import { useUserContext } from "../context/userContext"
 import { useNavigate } from "react-router-dom"
 import { base_endpoint } from "../utils/endpoints"
+import { toast } from 'react-toastify';
+
 
 const LossDocuments = () => {
 
@@ -80,7 +82,7 @@ const LossDocuments = () => {
         let nin = ninRef.current.value
 
         if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
-            return console.log("All Fields are required!")
+            return toast.error("All Fields are required!")
         }
 
         const files = [state.marriage, state.passport, state.birth, state.affidavit, state.identification]
@@ -106,6 +108,7 @@ const LossDocuments = () => {
                 .catch(err => {
                     console.log(err)
                     setLoading(false)
+                    toast.error("Uploading failed!")
                 })
         })
 
@@ -176,8 +179,8 @@ const LossDocuments = () => {
 
                         }else{
                             setLoading(false)
+                            toast.error("Uploading failed!")
                         }
-                        
                     })
                     .catch(err => {
                         setLoading(false)

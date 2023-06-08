@@ -7,6 +7,7 @@ import { useUserContext } from "../context/userContext"
 import { useNavigate } from "react-router-dom"
 import Spinner from '../components/Spinner'
 import { Helmet } from 'react-helmet'
+import { toast } from 'react-toastify';
 
 const ChangeName = () => {
 
@@ -77,7 +78,7 @@ const ChangeName = () => {
         let nin = ninRef.current.value
 
         if (!oldName || !newName || !confirmNewName || !email || !amount || !number || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
-            return console.log("All Fields are required!")
+            return toast.error("All Fields are required!")
         }
 
         let url = `${base_endpoint}/documents/change-of-name/uploads`
@@ -105,6 +106,7 @@ const ChangeName = () => {
                 .catch(err => {
                     console.log(err)
                     setLoading(false)
+                    toast.error("Uploading failed!")
                 })
         })
 
