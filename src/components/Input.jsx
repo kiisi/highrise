@@ -9,7 +9,7 @@ const Input = forwardRef(function Input(props, ref ){
   return (
     <div className="relative pt-[10px] w-full">
         <input 
-        className={`border-[1px] border-[#c0c1c4] caret-primary outline-none py-3 px-3 w-full rounded-[6px] ${readOnly ? "cursor-pointer" : "hover:border-primary focus:border-[transparent] focus:shadow-[0_0_0_2px_#684EA0]"}`}
+        className={`border-[1px] border-[#c0c1c4] caret-primary outline-none py-3 px-3 w-full rounded-[6px] ${readOnly ? "cursor-not-allowed" : "hover:border-primary focus:border-[transparent] focus:shadow-[0_0_0_2px_#684EA0]"}`}
         {...prop}
         readOnly={readOnly}
         ref={ref}

@@ -6,8 +6,6 @@ import { base_endpoint } from "../utils/endpoints"
 import Button from "../components/Button"
 import { Link, useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet"
-
-
 const Payment = () => {
 
     const navigate = useNavigate()
@@ -70,10 +68,11 @@ const Payment = () => {
                     headers:{
                         "Content-Type":"application/json"
                     },
-                    body:JSON.stringify({id: state.service.serviceId})
+                    body:JSON.stringify({serviceId: state.service.serviceId, userId: state.user._id })
                 }) 
                 const result = await res.json()
                 console.log(result)
+                navigate('/notification')
             })()
         },
         onClose: () => console.log("Close"),

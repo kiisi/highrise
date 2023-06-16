@@ -148,11 +148,10 @@ const Dashboard = ({ children }) => {
             </aside>
             <div className="flex-1 h-[100vh] page-scaffold">
                 <nav className="p-4 w-full bg-[#15283C] flex">
-                    <ul className="flex gap-x-3 max-w-max ml-auto">
-                        <li className="cursor-pointer text-white relative h-[25px] w-[25px] invisible"><i className="fa fa-bell-o text-[20px] p-1 c"></i><span className="notification-badge">2</span></li>
-                        <li className="cursor-pointer text-white relative h-[25px] w-[25px] invisible"><i className="fa fa-question-circle text-[20px] p-1"></i></li>
-                        <li className="cursor-pointer text-white relative h-[25px] w-[25px] invisible"><i className="fa fa-envelope-o text-[20px] p-1"></i><span className="notification-badge">2</span></li>
-                    </ul>
+                    <div className="flex gap-x-3 max-w-max ml-auto">
+                        {/* <Link to="#" className="cursor-pointer text-white relative h-[25px] w-[25px]"><i className="fa fa-question-circle text-[20px] p-1"></i></Link> */}
+                        <Link to="/notification" className="cursor-pointer text-white relative h-[25px] w-[25px]"><i className="fa fa-bell-o text-[20px] p-1 c"></i><span className="notification-badge"></span></Link>
+                    </div>
                 </nav>
                 {children}
             </div>

@@ -19,6 +19,8 @@ import Auth from './hoc/Auth';
 import { base_endpoint } from './utils/endpoints';
 import Payment from './pages/Payment';
 import ErrorBoundary from './pages/ErrorBoundary';
+import Notification from './pages/Notification';
+import Verification from './pages/Verification';
 
 const loaderFunc = async () => {
   const settings = {
@@ -118,6 +120,14 @@ const router = createBrowserRouter([
   {
     path: "/payment",
     element: <Auth><Payment/></Auth>,
+  },
+  {
+    path: "/notification",
+    element: <Auth><Notification/></Auth>,
+  },
+  {
+    path: "/verification",
+    element: <Verification/>,
   },
 ]);
 
