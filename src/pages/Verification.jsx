@@ -5,15 +5,14 @@ import { base_endpoint } from '../utils/endpoints'
 import { PaystackButton } from "react-paystack"
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
-import { useUserContext } from '../context/userContext'
 
 
 const Verification = () => {
 
     const [showPayStackButton, setShowPayStackButton] = useState(false)
+    const [state, setState] = useState(null)
 
     const navigate = useNavigate()
-    const { state } = useUserContext()
 
     const referenceCodeRef = useRef()
 
@@ -35,16 +34,22 @@ const Verification = () => {
 
         console.log(data)
         if(data.success){
-            setShowPayStackButton(data.success)
-        }else{
+            setShowPayStackButton(true)
+            setState(data)
+            toast.success(data.success)
+        }else if(data.warn){
+            setState(data)
+            toast.warn(data.warn)
+        }
+        else{
             toast.error(data.error)
             console.log(data.error)
         }
     }
 
-    const email = state.user.email
+    const email = state ? state.data.user.email : "Invalid"
     const amount = 10000
-    const name = state.user.full_name
+    const name = state ? state.data.user.full_name : "Invalid"
     const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
 
     const componentProps = {
