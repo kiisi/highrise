@@ -5,7 +5,7 @@ import { base_endpoint } from '../utils/endpoints'
 import { PaystackButton } from "react-paystack"
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
-
+import logo from '../assets/logo.svg'
 
 const Verification = () => {
 
@@ -72,18 +72,21 @@ const Verification = () => {
                     body:JSON.stringify({ reference_code: referenceCode })
                 }) 
                 const result = await res.json()
-
-                console.log(result)
                 
                 if(result.success){
                     toast.success(result.success)
-                    navigate('/profile')
+                    defaultStateHandler()
                 }else{
                     toast.error(result.error)
                 }
             })()
         },
         onClose: () => console.log("Close"),
+    }
+
+    const defaultStateHandler = () =>{
+        setShowPayStackButton(false)
+        setState(null)
     }
 
     return (
@@ -110,6 +113,55 @@ const Verification = () => {
                     </div>
                 </div>
             </section>
+            {
+            state && state.data && state.data.verified_reference_code &&
+            <section className="min-h-[100vh] fixed w-full verify-bg p-6 grid place-items-center">
+                <div className="w-full max-w-[500px] rounded-[10px] bg-white box-shadow-1 p-2">
+                    <header>
+                        <div className="flex justify-end">
+                            <i className="fa-solid fa-xmark cursor-pointer text-[20px]" onClick={defaultStateHandler}></i>
+                        </div>
+                        <figure className="flex justify-center">
+                            <img src={logo} alt="HerCode Logo" className="h-[50px]" />
+                        </figure>
+                    </header>
+                    <div className="pt-8 flex flex-col gap-y-4">
+                        <div className="bg-[#F6F9FC] box-shadow-1">
+                            <div className="pt-1 px-2 font-bold">
+                                <h1>Name:</h1>
+                            </div>
+                            <div className="py-1 px-2">
+                                <p>{state.data.service?.full_name ? state.data.service.full_name : state.data.service.new_name }</p>
+                            </div>
+                        </div>
+                        <div className="bg-[#F6F9FC] box-shadow-1">
+                            <div className="pt-1 px-2 font-bold">
+                                <h1>Email:</h1>
+                            </div>
+                            <div className="py-1 px-2">
+                                <p>{state.data.service.email}</p>
+                            </div>
+                        </div>
+                        <div className="bg-[#F6F9FC] box-shadow-1">
+                            <div className="pt-1 px-2 font-bold">
+                                <h1>Phone number:</h1>
+                            </div>
+                            <div className="py-1 px-2">
+                                <p>{state.data.service.phone_number}</p>
+                            </div>
+                        </div>
+                        <div className="bg-[#F6F9FC] box-shadow-1">
+                            <div className="pt-1 px-2 font-bold">
+                                <h1>NIN</h1>
+                            </div>
+                            <div className="py-1 px-2">
+                                <p>{state.data.service.nin}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            }
         </main>
     )
 }
