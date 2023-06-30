@@ -147,8 +147,8 @@ const Pricing = () => {
             <div className="pt-16">
                 <h1 className="text-[28px] text-center text-sec mb-2">Call for Enquires</h1>
                 <div className="max-w-max mx-auto flex gap-x-3 gap-y-3 flex-wrap text-center justify-center">
-                    <p>Lagos: <a href="tel:+2348155544323" className="hover:text-primary font-semibold">08155544323</a></p>
-                    <p>Awka: <a href="tel:+2348162776543" className="hover:text-primary font-semibold">08162776543</a></p>
+                    <p>Lagos: <a href="tel:+2348067807679" className="hover:text-primary font-semibold">08067807679</a></p>
+                    <p>Awka: <a href="tel:+2348162662668" className="hover:text-primary font-semibold">08162662668</a></p>
                 </div>
             </div>
         </section>
