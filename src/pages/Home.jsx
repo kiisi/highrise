@@ -6,6 +6,7 @@ import how_it_works_img from '../assets/howitworks.svg'
 import { Link } from "react-router-dom"
 import dayjs from 'dayjs'
 import { Helmet } from "react-helmet"
+import { useState } from "react"
 
 const Home = () => {
 
@@ -64,27 +65,30 @@ const Hero = () => {
 const service_data = [
     {
         icon: 'fa-solid fa-id-card',
-        title: 'CHANGE OF NAMES',
-        text: 'You can now apply for change of names and obtain approved documents'
+        title: 'Change of Names',
+        text: 'You can now apply for change of names and obtain approved documents',
+        price: '4,000'
     },
     {
         icon: 'fa fa-newspaper-o',
-        title: 'LOSS OF DOCUMENTS',
-        text: 'Apply for loss of documents request now and obtain an affidavit'
+        title: 'Loss of Documents',
+        text: 'Apply for loss of documents request now and obtain an affidavit',
+        price: '7,500'
+
     },
     {
         icon: 'fa fa-bullhorn',
-        title: 'PUBLIC NOTICE',
-        text: 'Start your public notice by signing up and filling the forms on your dashboard'
-    },
-    {
-        icon: 'fa-solid fa-circle-check',
-        title: 'AFFIDAVIT ONLINE (in-view)',
-        text: 'Click on the start button and select request for affidavit and get a signed affidavit'
+        title: 'Public Notice',
+        text: 'Start your public notice by signing up and filling the forms on your dashboard',
+        price: '7,500'
     },
 ]
 
 const Services = () => {
+
+    const [open, setOpen] = useState(false)
+
+    const btnHandler = (val) => setOpen(val)
 
     return (
         <section className="px-4 ss:px-8 max-w-xl mx-auto px-8 py-[5rem]">
@@ -95,16 +99,41 @@ const Services = () => {
             <div className="grid grid-cols-1 ss:grid-cols-2 gap-x-5 gap-y-5 mx-auto max-w-[55rem]">
                 {
                     service_data.map((d, i) => (
-                        <article key={i} className="p-[2rem] rounded-[5px] border-[1px] hover:border-[#666] grid place-items-center text-center bg-[#f8f8f8]">
-                            <div><i className={`${d?.icon} text-[32px] text-primary`}></i></div>
-                            <div>
+                        <article key={i} className="p-[2rem] rounded-[10px] border-[1px] hover:border-[#666] box-shadow bg-[#f8f8f8]">
+                            <div className='flex flex-col gap-y-5'>
                                 <h1 className="font-bold text-[17px] my-3">{d.title}</h1>
-                                <p className="text-[15px]">{d.text}</p>
+                                <h2 className="text-[36px] font-semibold">₦{d.price}</h2>
+                                <div><i className={`${d?.icon} text-[32px] text-primary`}></i></div>
+                                <p className="text-[15px] mb-4">{d.text}</p>
                             </div>
+                            <button className="py-2 w-full px-2 mt-3 text-center text-white bg-primary hover:bg-[#310077] rounded-[10px]">Purchase</button>
                         </article>
                     ))
                 }
+                <article className="p-[2rem] rounded-[10px] border-[1px] hover:border-[#666] box-shadow bg-[#f8f8f8]">
+                    <div className='flex flex-col gap-y-5'>
+                        <h1 className="font-bold text-[17px] my-3">Affidavit Online (in-view)</h1>
+                        <h2 className="text-[36px] font-semibold">Custom</h2>
+                        <div><i className="fa-solid fa-circle-check text-[32px] text-primary"></i></div>
+                        <p className="text-[15px] mb-4">Click on the start button and select request for affidavit and get a signed affidavit</p>
+                    </div>
 
+                    {
+                        open ?
+                            <div className={`z-[555] rounded-[10px] shadow-[0_0_20px_#00000033] cursor-pointer bg-white`}>
+                                <a onClick={() => btnHandler(false)} target='blank' href='https://affidavit.abiahighcourt.org' className='flex gap-x-2 px-3 py-3 hover:bg-[#f1f1f1]'>
+                                    <span className="material-icons"> open_in_new </span>
+                                    <span>Abia state high court online affidavit</span>
+                                </a>
+                                <a onClick={() => btnHandler(false)} target='blank' href='https://comis.oyostatejudiciary.oy.gov.ng/account.html' className='flex gap-x-2 px-3 py-3 hover:bg-[#f1f1f1]'>
+                                    <span className="material-icons"> open_in_new </span>
+                                    <span>Oyo state high court online affidavit</span>
+                                </a>
+                            </div>
+                            :
+                            <button onClick={() => btnHandler(true)} className="py-2 w-full px-2 mt-3 text-center text-white bg-primary hover:bg-[#310077] rounded-[10px]">Get Now</button>
+                    }
+                </article>
             </div>
         </section>
     )
