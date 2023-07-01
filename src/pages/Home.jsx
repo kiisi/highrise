@@ -67,20 +67,23 @@ const service_data = [
         icon: 'fa-solid fa-id-card',
         title: 'Change of Names',
         text: 'You can now apply for change of names and obtain approved documents',
-        price: '4,000'
+        price: '4,000',
+        to:'/change-of-name'
     },
     {
         icon: 'fa fa-newspaper-o',
         title: 'Loss of Documents',
         text: 'Apply for loss of documents request now and obtain an affidavit',
-        price: '7,500'
+        price: '7,500',
+        to:'/loss-of-docs'
 
     },
     {
         icon: 'fa fa-bullhorn',
         title: 'Public Notice',
         text: 'Start your public notice by signing up and filling the forms on your dashboard',
-        price: '7,500'
+        price: '7,500',
+        to:'/public-notice'
     },
 ]
 
@@ -106,7 +109,9 @@ const Services = () => {
                                 <div><i className={`${d?.icon} text-[32px] text-primary`}></i></div>
                                 <p className="text-[15px] mb-4">{d.text}</p>
                             </div>
-                            <button className="py-2 w-full px-2 mt-3 text-center text-white bg-primary hover:bg-[#310077] rounded-[10px]">Purchase</button>
+                            <Link to={d.to}>
+                                <button className="py-2 w-full px-2 mt-3 text-center text-white bg-primary hover:bg-[#310077] rounded-[10px]">Purchase</button>
+                            </Link>
                         </article>
                     ))
                 }
