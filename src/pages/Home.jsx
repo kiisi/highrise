@@ -117,13 +117,14 @@ const pricing_data = [
     },
     {
         service: 'Change of Names',
-        price: '5,000'
+        price: '4,000'
     },
     {
         service: 'Company Trustees',
         price: '15,000'
     }
 ]
+
 const Pricing = () => {
 
     return (
