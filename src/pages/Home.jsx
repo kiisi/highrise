@@ -51,7 +51,7 @@ const Hero = () => {
         <header className="py-[5rem] page-offset px-4 ss:px-8 max-w-xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-y-10 gap-x-10 justify-between">
             <div className="max-w-[40rem] mt-14">
                 <h1 className="text-[36px] ss:text-[55px] font-bold">Highrise <span className="text-sec">News</span>paper</h1>
-                <p className="my-4 text-[18px] ss:text-[20px]">With HighRise you can now apply for change of names, apply affidavit for declaration of age loss of documents etc from your bed!!!</p>
+                <p className="my-4 text-[18px] ss:text-[20px]">With HighRise you can now apply for change of names, apply affidavit for declaration of age, loss of documents etc from your bed!!!</p>
                 <Link to="/signup"><Button className="mt-5">Get Started</Button></Link>
             </div>
             <div>
@@ -94,7 +94,7 @@ const Services = () => {
         <section className="px-4 ss:px-8 max-w-xl mx-auto px-8 py-[5rem]">
             <header className="mb-16 text-center max-w-[35rem] mx-auto">
                 <h1 className="text-center text-[32px] ss:text-[40px] text-primary font-bold">Our Services</h1>
-                <p className="text-[18px] ss:text-[20px]">Our aim is to provide you with standard service delivery in a courteous and timely mannner</p>
+                <p className="text-[18px] ss:text-[20px]">Our aim is to provide you with standard service delivery in a courteous and timely manner</p>
             </header>
             <div className="grid grid-cols-1 ss:grid-cols-2 gap-x-5 gap-y-5 mx-auto max-w-[55rem]">
                 {
