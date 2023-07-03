@@ -120,7 +120,7 @@ const Services = () => {
                 }
                 <article className="p-[2rem] rounded-[10px] border-[1px] hover:border-[#666] box-shadow bg-[#f8f8f8]">
                     <div className='flex flex-col gap-y-5'>
-                        <h1 className="font-bold text-[17px] my-3">Affidavit Online, inview</h1>
+                        <h1 className="font-bold text-[17px] my-3">Affidavit</h1>
                         <h2 className="text-[36px] font-semibold">&nbsp;</h2>
                         <div><i className="fa-solid fa-circle-check text-[32px] text-primary"></i></div>
                         <p className="text-[15px] mb-4">Click on the GET NOW button below and select high court</p>

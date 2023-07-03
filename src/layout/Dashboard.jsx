@@ -22,7 +22,7 @@ const sidemenuLinks = [
     },
     {
         icon: 'fa-solid fa-circle-check',
-        title: 'Affidavit Online',
+        title: 'Affidavit',
         to: '/affidavit'
     },
 ]
