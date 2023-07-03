@@ -37,8 +37,8 @@ const Navbar = () => {
           </div>
           <div className="items-center gap-x-5 hidden ss:flex cursor-pointer">
             <Link to='/'>Home</Link>
-            <a>About</a>
-            <a>Contact us</a>
+            <a href='#about'>About</a>
+            <a href="#contact-us">Contact us</a>
             {
               data ?
                 <Link to="/profile"><Button className="ml-8">Dashboard</Button></Link>

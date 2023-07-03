@@ -97,7 +97,7 @@ const Services = () => {
     const btnHandler = (val) => setOpen(val)
 
     return (
-        <section className="px-4 ss:px-8 max-w-xl mx-auto px-8 py-[5rem]">
+        <section className="px-4 ss:px-8 max-w-xl mx-auto px-8 py-[5rem]" id="about">
             <header className="mb-16 text-center max-w-[35rem] mx-auto">
                 <h1 className="text-center text-[32px] ss:text-[40px] text-primary font-bold">Our Services</h1>
                 <p className="text-[18px] ss:text-[20px]">Our aim is to provide you with standard service delivery in a courteous and timely manner</p>
@@ -182,7 +182,7 @@ const Pricing = () => {
                     ))
                 }
             </div>
-            <div className="pt-16">
+            <div className="pt-24" id="contact-us">
                 <h1 className="text-[28px] text-center text-sec mb-2">Call for Enquires</h1>
                 <div className="max-w-max mx-auto flex gap-x-3 gap-y-3 flex-wrap text-center justify-center">
                     <p>Lagos: <a href="tel:+2348067807679" className="hover:text-primary font-semibold">08067807679</a></p>
