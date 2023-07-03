@@ -52,7 +52,10 @@ const Hero = () => {
             <div className="max-w-[40rem] mt-14">
                 <h1 className="text-[36px] ss:text-[55px] font-bold">Highrise <span className="text-sec">News</span>paper</h1>
                 <p className="my-4 text-[18px] ss:text-[20px]">With HighRise you can now apply for change of names, apply affidavit for declaration of age, loss of documents etc from your bed!!!</p>
-                <Link to="/signup"><Button className="mt-5">Get Started</Button></Link>
+                <div className='flex gap-x-2 mt-5'>
+                <Link to="/signup"><Button>Get Started</Button></Link>
+                <Link to="/verification"><Button className="bg-white !text-primary border-[1px] border-primary font-semibold hover:!text-white">Start Verification</Button></Link>
+                </div>
             </div>
             <div>
                 <img src={hero_img} alt="Hero" />
@@ -117,10 +120,10 @@ const Services = () => {
                 }
                 <article className="p-[2rem] rounded-[10px] border-[1px] hover:border-[#666] box-shadow bg-[#f8f8f8]">
                     <div className='flex flex-col gap-y-5'>
-                        <h1 className="font-bold text-[17px] my-3">Affidavit Online (in-view)</h1>
-                        <h2 className="text-[36px] font-semibold">Custom</h2>
+                        <h1 className="font-bold text-[17px] my-3">Affidavit Online, inview</h1>
+                        <h2 className="text-[36px] font-semibold">&nbsp;</h2>
                         <div><i className="fa-solid fa-circle-check text-[32px] text-primary"></i></div>
-                        <p className="text-[15px] mb-4">Click on the start button and select request for affidavit and get a signed affidavit</p>
+                        <p className="text-[15px] mb-4">Click on the GET NOW button below and select high court</p>
                     </div>
 
                     {
