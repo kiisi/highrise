@@ -48,7 +48,7 @@ const Verification = () => {
     }
 
     const email = state ? state.data.user.email : "Invalid"
-    const amount = 10000
+    const amount = 1000
     const name = state ? state.data.user.full_name : "Invalid"
     const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
 
