@@ -211,7 +211,7 @@ const ChangeName = () => {
                                 <Input label="Email" type="email" ref={emailRef} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Amount (₦)" type="number" ref={amountRef} readOnly={true} defaultValue={5000} />
+                                <Input label="Amount (₦)" type="number" ref={amountRef} readOnly={true} defaultValue={4500} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="Phone number" type="number" min={0} ref={numberRef} />
