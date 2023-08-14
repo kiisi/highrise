@@ -88,6 +88,13 @@ const service_data = [
         price: '7,500',
         to:'/public-notice'
     },
+    {
+        icon: 'fa-solid fa-id-card',
+        title: 'Correction of name/age',
+        text: 'You can now apply for correction of names/age and obtain approved documents',
+        price: '4,000',
+        to:'/'
+    },
 ]
 
 const Services = () => {
@@ -154,6 +161,10 @@ const pricing_data = [
     },
     {
         service: 'Change of Names',
+        price: '4,000'
+    },
+    {
+        service: 'Correction of name/age',
         price: '4,000'
     },
     {
