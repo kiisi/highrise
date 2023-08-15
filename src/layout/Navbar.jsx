@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from 'react'
 import logo from '../assets/logo.svg'
 import Button from '../components/Button'
-import { Link, useLoaderData } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useUserContext } from '../context/userContext'
 
 
 const Navbar = () => {
 
-  const data = useLoaderData();
+  const { state } = useUserContext()
 
   const [click, setClick] = useState(false)
 
@@ -26,7 +27,7 @@ const Navbar = () => {
     }
   }, [])
 
-  
+
 
   return (
     <>
@@ -40,8 +41,8 @@ const Navbar = () => {
             <a href='#about'>About</a>
             <a href="#contact-us">Contact us</a>
             {
-              data ?
-                <Link to="/profile"><Button className="ml-8">Dashboard</Button></Link>
+              state?.user ?
+                <Link to="/dashboard"><Button className="ml-8">Dashboard</Button></Link>
                 :
                 <>
                   <Link to="/signup" className="mr-8">Sign up</Link>
@@ -53,25 +54,32 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <aside className={`fixed max-w-[300px] w-full h-full bg-white navbar-mobile-sidebar ${click ? "active" : ""} top-0 z-[99999]`}>
+      <aside className={`fixed max-w-[300px] flex flex-col gap-y-6 w-full h-full bg-white navbar-mobile-sidebar ${click ? "active" : ""} top-0 z-[99999]`}>
         <div className="p-4 flex justify-end">
           <span className="material-icons" onClick={() => clickHandler(false)}>close</span>
         </div>
-        <div className="py-3 pr-3 pl-10 flex">
+        <div className="pr-3 pl-10 flex">
           <a>Home</a>
         </div>
-        <div className="py-3 pr-3 pl-10 flex">
+        <div className="pr-3 pl-10 flex">
           <a>About</a>
         </div>
-        <div className="py-3 pr-3 pl-10 flex">
+        <div className="pr-3 pl-10 flex">
           <a>Contact us</a>
         </div>
-        <div className="py-3 pr-3 pl-10 flex">
-          <Link>Sign up</Link>
-        </div>
-        <div className="py-3 pr-3 pl-10 flex">
-          <Link to="/login"><Button>Login</Button></Link>
-        </div>
+        {
+          state?.user ?
+            <Link to="/dashboard"><Button className="ml-8">Dashboard</Button></Link>
+            :
+            <>
+              <div className="pr-3 pl-10 flex">
+                <Link>Sign up</Link>
+              </div>
+              <div className="pr-3 pl-10 flex">
+                <Link to="/login"><Button>Login</Button></Link>
+              </div>
+            </>
+        }
       </aside>
 
       {

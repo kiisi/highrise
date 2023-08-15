@@ -8,29 +8,34 @@ const sidemenuLinks = [
     {
         icon: 'fa-solid fa-id-card',
         title: 'Change Of Names',
-        to: '/change-of-name'
+        to: '/dashboard/change-of-name'
+    },
+    {
+        icon: 'fa-solid fa-circle-check',
+        title: 'Correction Of Name/Age',
+        to: '/dashboard/correction-of-name-age'
     },
     {
         icon: 'fa fa-newspaper-o',
         title: 'Loss Of Documents',
-        to: '/loss-of-docs'
+        to: '/dashboard/loss-of-docs'
     },
     {
         icon: 'fa fa-bullhorn',
         title: 'Public Notice',
-        to: '/public-notice'
+        to: '/dashboard/public-notice'
     },
-    {
-        icon: 'fa-solid fa-circle-check',
-        title: 'Affidavit',
-        to: '/affidavit'
-    },
+    // {
+    //     icon: 'fa-solid fa-circle-check',
+    //     title: 'Affidavit',
+    //     to: '/dashboard/affidavit'
+    // },
 ]
 const Dashboard = ({ children }) => {
 
     const navigate = useNavigate()
 
-    const { state } = useUserContext()
+    const { state, dispatch } = useUserContext()
 
     const logout = async () => {
 
@@ -38,6 +43,7 @@ const Dashboard = ({ children }) => {
             const res = await fetch(`${base_endpoint}/auth/logout`, { credentials: 'include' })
             const result = await res.json()
             if (result.success) {
+                dispatch({ type:"USER", payload: null })
                 return navigate('/')
             }
         } catch (err) {
@@ -101,25 +107,25 @@ const Dashboard = ({ children }) => {
 
     return (
         <div className="h-[100vh] w-full flex bg-[#f8f8f8]">
-            <aside className="w-full max-w-[260px] h-[100vh] dashboard-sidenav flex flex-col pb-[20px] dashboard-sidenav-scaffold">
+            <aside className="w-full max-w-[300px] h-[100vh] dashboard-sidenav flex flex-col pb-[20px] dashboard-sidenav-scaffold">
                 <div className="p-4 flex items-center gap-x-4 ">
                     <figure className="h-[65px] w-[65px] relative cursor-pointer">
                         {displayProfilePic}
-                        <label htmlFor="profile-picture" className="material-icons absolute bottom-0 right-0 text-primary"> add_a_photo </label>
+                        {/* <label htmlFor="profile-picture" className="material-icons absolute bottom-0 right-0 text-primary"> add_a_photo </label> */}
                         <input type="file" className="hidden" id="profile-picture" onChange={(e) => profilePicsHandler(e)} />
                     </figure>
                     <figcaption>
                         <p className="max-w-[120px] text-white font-bold truncate">{state.user.full_name}</p>
                     </figcaption>
                 </div>
-                <div className="pt-8 pb-2 px-6 border-primary border-b-2">
+                <div className="pt-8 pb-2 px-4 border-primary border-b-2">
                     <header className="text-white text-[22px]">Dashboard</header>
                 </div>
                 <div className="mb-[50px] pt-[20px] pr-[20px]">
                     {
                         sidemenuLinks.map((sml, i) => (
                             <Link key={i} to={sml.to}>
-                                <button className="py-3 px-6 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] mr-[20px] w-full">
+                                <button className="py-3 px-4 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] mr-[20px] w-full">
                                     <i className={`${sml.icon} text-[20px]`}></i>
                                     <span>{sml.title}</span>
                                 </button>
@@ -128,19 +134,19 @@ const Dashboard = ({ children }) => {
                     }
                 </div>
                 <div className="mt-auto pr-[20px]">
-                    <Link to='/profile'>
-                        <button className="py-3 px-6 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] w-full">
+                    <Link to='/dashboard'>
+                        <button className="py-3 px-4 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] w-full">
                             <span className="material-icons">account_circle</span>
                             <span>Profile</span>
                         </button>
                     </Link>
-                    <Link to="/update-profile">
-                        <button className="py-3 px-6 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] w-full">
+                    <Link to="/dashboard/update-profile">
+                        <button className="py-3 px-4 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] w-full">
                             <span className="material-icons">settings</span>
                             <span>Profile Settings</span>
                         </button>
                     </Link>
-                    <button onClick={logout} className="py-3 px-6 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] mr-[20px] w-full">
+                    <button onClick={logout} className="py-3 px-4 text-white hover:text-primary font-bold cursor-pointer flex items-center gap-x-4 hover:bg-white rounded-r-[10px] mr-[20px] w-full">
                         <span className="material-icons">logout</span>
                         <span>Logout</span>
                     </button>
@@ -150,7 +156,7 @@ const Dashboard = ({ children }) => {
                 <nav className="p-4 w-full bg-[#15283C] flex">
                     <div className="flex gap-x-3 max-w-max ml-auto">
                         {/* <Link to="#" className="cursor-pointer text-white relative h-[25px] w-[25px]"><i className="fa fa-question-circle text-[20px] p-1"></i></Link> */}
-                        <Link to="/notification" className="cursor-pointer text-white relative h-[25px] w-[25px]"><i className="fa fa-bell-o text-[20px] p-1 c"></i><span className="notification-badge"></span></Link>
+                        <Link to="/dashboard/notification" className="cursor-pointer text-white relative h-[25px] w-[25px]"><i className="fa fa-bell-o text-[20px] p-1 c"></i><span className="notification-badge"></span></Link>
                     </div>
                 </nav>
                 {children}

@@ -169,7 +169,7 @@ const ChangeName = () => {
                                     route:'change-of-name'
                                 }
                             })
-                            return navigate('/payment')
+                            return navigate('/dashboard/payment')
                         }else{
                             setLoading(false)
                         }

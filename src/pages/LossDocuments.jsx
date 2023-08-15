@@ -175,7 +175,7 @@ const LossDocuments = () => {
                                     route:'loss-of-docs'
                                 }
                             })
-                            return navigate('/payment')
+                            return navigate('/dashboard/payment')
 
                         }else{
                             setLoading(false)

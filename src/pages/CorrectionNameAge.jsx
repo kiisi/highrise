@@ -2,67 +2,61 @@ import Dashboard from "../layout/Dashboard"
 import Input from '../components/Input'
 import Button from '../components/Button'
 import { useReducer, useRef, useState } from 'react'
-import { Helmet } from 'react-helmet'
-import { useNavigate } from "react-router-dom"
-import { useUserContext } from "../context/userContext"
-import Spinner from "../components/Spinner"
 import { base_endpoint } from "../utils/endpoints"
+import { useUserContext } from "../context/userContext"
+import { useNavigate } from "react-router-dom"
+import Spinner from '../components/Spinner'
+import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify';
 
-const PublicNotice = () => {
+const CorrectionNameAge = () => {
 
     const navigate = useNavigate()
     const globalState = useUserContext()
     const [loading, setLoading] = useState(false)
 
-    const fullNameRef = useRef()
+    const oldNameRef = useRef()
+    const newNameRef = useRef()
+    const confirmNewNameRef = useRef()
     const emailRef = useRef()
-    const numberRef = useRef()
     const amountRef = useRef()
+    const numberRef = useRef()
     const ninRef = useRef()
 
     const initState = {
-        marriage: null,
         passport: null,
         birth: null,
         affidavit: null,
         identification: null
     }
+    const reducerFunc = (state, action) => {
 
-    const reducerFunc = (state, action) =>{
-
-        switch(action.type){
-            case "marriage":{
-                return {
-                    ...state,
-                    marriage: action.payload
-                }
-            }
-            case "passport":{
+        switch (action.type) {
+            case "passport": {
                 return {
                     ...state,
                     passport: action.payload
                 }
             }
-            case "birth":{
+            case "birth": {
                 return {
                     ...state,
                     birth: action.payload
                 }
             }
-            case "affidavit":{
+            case "affidavit": {
                 return {
                     ...state,
                     affidavit: action.payload
                 }
             }
-            case "identification":{
+            case "identification": {
                 return {
                     ...state,
                     identification: action.payload
                 }
             }
-            default:{
+            default: {
                 throw Error("Unknown Action")
             }
         }
@@ -70,24 +64,24 @@ const PublicNotice = () => {
 
     const [state, dispatch] = useReducer(reducerFunc, initState)
 
-    const fileInputHandler = (e, type) =>{
-        dispatch({type: type, payload: e.target.files[0]})
+    const fileInputHandler = (e, type) => {
+        dispatch({ type: type, payload: e.target.files[0] })
     }
 
-    
     const submit = async () => {
-
-        let fullName = fullNameRef.current.value
+        let oldName = oldNameRef.current.value
+        let newName = newNameRef.current.value
+        let confirmNewName = confirmNewNameRef.current.value
         let email = emailRef.current.value
         let amount = amountRef.current.value
         let number = numberRef.current.value
         let nin = ninRef.current.value
 
-        if (!fullName || !email || !amount || !state.marriage || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
+        if (!oldName || !newName || !confirmNewName || !email || !amount || !number || !state.passport || !state.birth || !state.affidavit || !state.identification || !nin) {
             return toast.error("All Fields are required!")
         }
 
-        const files = [state.marriage, state.passport, state.birth, state.affidavit, state.identification]
+        const files = [state.passport, state.birth, state.affidavit, state.identification]
         const files_url = {}
         const formData = new FormData()
         formData.append("upload_preset", "highrise")
@@ -119,22 +113,18 @@ const PublicNotice = () => {
                 results.forEach((result, i) => {
                     switch (i) {
                         case 0: {
-                            files_url.marriage = result.url
-                            break;
-                        }
-                        case 1: {
                             files_url.passport = result.url
                             break;
                         }
-                        case 2: {
+                        case 1: {
                             files_url.birth = result.url
                             break
                         }
-                        case 3: {
+                        case 2: {
                             files_url.affidavit = result.url
                             break
                         }
-                        case 4: {
+                        case 3: {
                             files_url.identification = result.url
                             break;
                         }
@@ -147,13 +137,17 @@ const PublicNotice = () => {
                 // Send request to backend server
                 const data = {
                     user: globalState.state.user._id,
-                    full_name: fullName,
-                    phone_number: number,
+                    old_name: oldName,
+                    new_name: newName,
+                    confirm_new_name: confirmNewName,
                     amount: amount,
                     email: email,
+                    phone_number: number,
                     nin: nin,
                     ...files_url
                 }
+
+                let url = `${base_endpoint}/documents/correction-of-name-age/uploads`
 
                 const settings = {
                     method: "post",
@@ -163,27 +157,22 @@ const PublicNotice = () => {
                     body: JSON.stringify(data)
                 }
 
-                let url = `${base_endpoint}/documents/public-notice/uploads`
-
                 fetch(url, settings)
                     .then(res => res.json())
                     .then(result => {
-                        console.log(result)
                         if(result.success){
                             globalState.dispatch({
                                 type: "SERVICE", payload: {
-                                    type: "Loss Of Documents",
+                                    type: "Correction Of Name/Age",
                                     amount: amount,
                                     serviceId: result.data._id,
-                                    route: 'public-notice'
+                                    route:'correction-of-name-age'
                                 }
                             })
                             return navigate('/dashboard/payment')
-
                         }else{
                             setLoading(false)
                         }
-                        
                     })
                     .catch(err => {
                         setLoading(false)
@@ -198,28 +187,34 @@ const PublicNotice = () => {
 
     return (
         <Dashboard>
-            <Helmet>
-                <title>Highrise - Public Notice</title>
-            </Helmet>
+            {loading ? <Spinner /> : null}
             <main>
-                {loading ? <Spinner /> : null}
+                <Helmet>
+                    <title>Highrise - Correction Of Name/Age</title>
+                </Helmet>
                 <header className="pt-[25px] pr-[35px] pb-[22px] pl-[38px] shadow-[1px_0_5px_#0000001a]">
-                    <h1 className="text-primary text-[24px] font-bold">Public Notice</h1>
+                    <h1 className="text-primary text-[24px] font-bold">Correction Of Name/Age Registration Form</h1>
                 </header>
                 <section className="pt-[50px] pr-[35px] pb-[22px] pl-[38px]">
                     <div className="bg-[#fff] p-10">
                         <div className="flex flex-wrap gap-x-10 gap-y-10">
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Full name" type="text" ref={fullNameRef} />
+                                <Input label="Old name" type="text" ref={oldNameRef} />
+                            </fieldset>
+                            <fieldset className="max-w-[400px] w-full">
+                                <Input label="New name" type="text" ref={newNameRef} />
+                            </fieldset>
+                            <fieldset className="max-w-[400px] w-full">
+                                <Input label="Confirm New name" type="text" ref={confirmNewNameRef} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="Email" type="email" ref={emailRef} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Phone number" type="number" ref={numberRef} />
+                                <Input label="Amount (₦)" type="number" ref={amountRef} readOnly={true} defaultValue={4000} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Amount (₦)" type="number" ref={amountRef} readOnly={true} defaultValue={15000}/>
+                                <Input label="Phone number" type="number" min={0} ref={numberRef} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="National Identification Number (NIN)" type="number" min={0} ref={ninRef} />
@@ -227,44 +222,36 @@ const PublicNotice = () => {
                         </div>
                         <div className="flex flex-wrap gap-x-10 gap-y-10 mt-16">
                             <fieldset className="max-w-[400px] w-full">
-                                <h1>Marriage certificate</h1>
-                                    <div className="rounded-xl mt-2 flex p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
-                                        <label htmlFor="marriage-certificate" name="marriage-certificate" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
-                                        <input type="file" className="hidden" id="marriage-certificate" onChange={(e) =>  fileInputHandler(e, "marriage")}/>
-                                        <span className="whitespace-nowrap truncate flex-1">{state.marriage ? state.marriage.name : "No files currently selected" }</span>
-                                    </div>
-                            </fieldset>
-                            <fieldset className="max-w-[400px] w-full">
                                 <h1>Passport photograph</h1>
-                                    <div className="rounded-xl mt-2 flex p-2 gap-x-2 items-center border-[1px] border-primary max-w-[400px] w-full">
-                                        <label htmlFor="passport-photograph" name="passport-photograph" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
-                                        <input type="file" className="hidden" id="passport-photograph" onChange={(e) =>  fileInputHandler(e, "passport")}/>
-                                        <span className="whitespace-nowrap truncate">{state.passport ? state.passport.name : "No files currently selected" }</span>
-                                    </div>
+                                <div className="rounded-xl mt-2 flex p-2 gap-x-2 items-center border-[1px] border-primary max-w-[400px] w-full">
+                                    <label htmlFor="passport-photograph" name="passport-photograph" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
+                                    <input type="file" className="hidden" id="passport-photograph" onChange={(e) => fileInputHandler(e, "passport")} name="passport" />
+                                    <span className="whitespace-nowrap truncate">{state.passport ? state.passport.name : "No files currently selected"}</span>
+                                </div>
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <h1>Birth certificate</h1>
-                                    <div className="rounded-xl mt-2 flex p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
-                                        <label htmlFor="birth-certificate" name="birth-certificate" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
-                                        <input type="file" className="hidden" id="birth-certificate" onChange={(e) =>  fileInputHandler(e, "birth")}/>
-                                        <span className="whitespace-nowrap truncate">{state.birth ? state.birth.name : "No files currently selected" }</span>
-                                    </div>
+                                <div className="rounded-xl mt-2 flex p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
+                                    <label htmlFor="birth-certificate" name="birth-certificate" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
+                                    <input type="file" className="hidden" id="birth-certificate" onChange={(e) => fileInputHandler(e, "birth")} />
+                                    <span className="whitespace-nowrap truncate">{state.birth ? state.birth.name : "No files currently selected"}</span>
+                                </div>
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <h1>Affidavit</h1>
-                                    <div className="rounded-xl mt-2 flex p-2 gap-x-2 items-center border-[1px] border-primary max-w-[400px] w-full">
-                                        <label htmlFor="affidavit" name="affidavit" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
-                                        <input type="file" className="hidden" id="affidavit" onChange={(e) =>  fileInputHandler(e, "affidavit")}/>
-                                        <span className="whitespace-nowrap truncate">{state.affidavit ? state.affidavit.name : "No files currently selected" }</span>
-                                    </div>
+                                <div className="rounded-xl mt-2 flex p-2 gap-x-2 items-center border-[1px] border-primary max-w-[400px] w-full">
+                                    <label htmlFor="affidavit" name="affidavit" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
+                                    <input type="file" className="hidden" id="affidavit" onChange={(e) => fileInputHandler(e, "affidavit")} />
+                                    <span className="whitespace-nowrap truncate">{state.affidavit ? state.affidavit.name : "No files currently selected"}</span>
+                                </div>
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <h1>Identification(NIN,Voters Card,Driving licence)</h1>
-                                    <div className="rounded-xl flex mt-2 p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
-                                        <label htmlFor="identification" name="identification" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
-                                        <input type="file" className="hidden" id="identification" onChange={(e) =>  fileInputHandler(e, "identification")}/>
-                                        <span className="whitespace-nowrap truncate">{state.identification ? state.identification.name : "No files currently selected" }</span>
-                                    </div>
+                                <div className="rounded-xl flex mt-2 p-2 gap-x-2 items-center border-[1px] border-primary w-full max-w-[400px]">
+                                    <label htmlFor="identification" name="identification" className="bg-primary px-10 py-2.5 rounded-md text-white hover:bg-[#310077]">Upload</label>
+                                    <input type="file" className="hidden" id="identification" onChange={(e) => fileInputHandler(e, "identification")} />
+                                    <span className="whitespace-nowrap truncate">{state.identification ? state.identification.name : "No files currently selected"}</span>
+                                </div>
                             </fieldset>
                         </div>
 
@@ -276,4 +263,4 @@ const PublicNotice = () => {
     )
 }
 
-export default PublicNotice
+export default CorrectionNameAge

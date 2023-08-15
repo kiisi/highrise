@@ -1,42 +1,51 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useUserContext } from '../context/userContext'
-import Spinner from '../components/Spinner'
-import { base_endpoint } from '../utils/endpoints'
+import authService from '../services/auth'
 
-const Auth = ({ children }) =>{
+const Auth = ({ children }) => {
 
-    const [auth, setAuth] = useState(null)
     const navigate = useNavigate()
+    let location = useLocation().pathname;
+    const [splash, setSplash] = useState(true)
     const { dispatch } = useUserContext()
 
-    const settings = {
-        credentials: 'include',
-        headers: {
-            "Content-Type": "application/json",
-        }
-    };
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await authService.verifyUser()
+                console.log(res)
 
-    useEffect(()=>{
-        (async ()=>{
-            try{
-                const res = await fetch(`${base_endpoint}/auth/verify-user`, settings)
-                const data = await res.json()
-                if(data.success){
-                    dispatch({type:"USER", payload: data.data})
-                    setAuth(true)
-                }else{
-                    navigate('/login')
+                if (res.data.success) {
+                    dispatch({ type: "USER", payload: res.data.data })
+                    setSplash(false)
+                    navigate('/dashboard')
+                } else {
+                    setSplash(false)
+                    if (['/login', '/signup', '/verification'].includes(location)) {
+                        navigate(location)
+                    } else {
+                        navigate('/')
+                    }
                 }
-            }
-            catch(err){
-                navigate('/login')
+            } catch (err) {
+                setSplash(false)
+                navigate('/')
+                console.log("Error", err)
             }
         })()
     }, [])
 
-    return <>{ auth ? children : <Spinner/> }</>;
+    if (splash) {
+        return (
+            <main className="h-[100vh] w-full grid place-items-center">
+                <img src="/logo.svg" alt="HerCode Logo" className="h-[50px]" />
+            </main>
+        )
+    }
+
+    return <>{children}</>;
 }
 
 export default Auth

@@ -71,14 +71,14 @@ const service_data = [
         title: 'Change of Names',
         text: 'You can now apply for change of names and obtain approved documents',
         price: '4,000',
-        to:'/change-of-name'
+        to:'/dashboard/change-of-name'
     },
     {
         icon: 'fa fa-newspaper-o',
         title: 'Loss of Documents',
         text: 'Apply for loss of documents request now and obtain an affidavit',
         price: '7,500',
-        to:'/loss-of-docs'
+        to:'/dashboard/loss-of-docs'
 
     },
     {
@@ -86,14 +86,14 @@ const service_data = [
         title: 'Public Notice',
         text: 'Start your public notice by signing up and filling the forms on your dashboard',
         price: '7,500',
-        to:'/public-notice'
+        to:'/dashboard/public-notice'
     },
     {
         icon: 'fa-solid fa-id-card',
         title: 'Correction of name/age',
         text: 'You can now apply for correction of names/age and obtain approved documents',
         price: '4,000',
-        to:'/'
+        to:'/dashboard/correction-of-name-age'
     },
 ]
 

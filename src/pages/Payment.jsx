@@ -68,11 +68,14 @@ const Payment = () => {
                     headers:{
                         "Content-Type":"application/json"
                     },
-                    body:JSON.stringify({serviceId: state.service.serviceId, userId: state.user._id })
+                    body:JSON.stringify({
+                        serviceId: state.service.serviceId, 
+                        userId: state.user._id, 
+                    })
                 }) 
                 const result = await res.json()
                 console.log(result)
-                navigate('/notification')
+                navigate('/dashboard/notification')
             })()
         },
         onClose: () => console.log("Close"),

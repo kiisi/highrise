@@ -94,7 +94,7 @@ const Verification = () => {
             <section className='max-w-[500px] w-full bg-white px-4 py-6'>
                 <header>
                     <div className="flex pb-4">
-                    <i className="ml-auto fa-solid fa-arrow-right text-[20px]" onClick={() => navigate('/profile')}></i>
+                    <i className="ml-auto fa-solid fa-arrow-right text-[20px]" onClick={() => navigate(-1)}></i>
                     </div>
                     <h1 className="text-primary text-center font-bold text-[20px]">VERIFY REFERENCE CODE FOR AUTHENTICITY</h1>
                 </header>

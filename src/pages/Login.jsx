@@ -87,7 +87,8 @@ const Login = () => {
       if(result.success && result.verified_email === true){
 
         toast.success(result.success)
-        navigate('/profile')
+        dispatch({ type:"USER", payload: result.data })
+        navigate('/dashboard')
 
       }else if(result.error && result.verified_email === false){
 
