@@ -57,9 +57,8 @@ const Notification = () => {
                         notifications.length > 0 ?
                             notifications.map((notify, i) => (
                                 <div className="rounded-[5px] overflow-hidden" key={i}>
-                                <div className="py-2 px-4 bg-[#15283C] flex gap-x-5 items-center">
+                                <div className="py-3 px-4 bg-[#15283C]">
                                     <i className="fa-sharp fa-solid fa-bell text-white text-[20px]"></i>
-                                    <h2 className="text-[20px] text-white font-semibold">Notification</h2>
                                 </div>
                                 <div className="py-2 px-4 bg-[#3A6C9F] text-white">
                                     <p>{notify.message}</p>
