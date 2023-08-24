@@ -70,7 +70,7 @@ const service_data = [
         icon: 'fa-solid fa-id-card',
         title: 'Change of Names',
         text: 'You can now apply for change of names and obtain approved documents',
-        price: '4,000',
+        price: '3,000',
         to:'/dashboard/change-of-name'
     },
     {
@@ -161,7 +161,7 @@ const pricing_data = [
     },
     {
         service: 'Change of Names',
-        price: '4,000'
+        price: '3,000'
     },
     {
         service: 'Correction of name/age',
