@@ -19,7 +19,6 @@ const Home = () => {
             <Navbar />
             <Hero />
             <Services />
-            <Pricing />
             <HowItWorks />
             <Chat />
             <Footer />
@@ -77,7 +76,7 @@ const service_data = [
         icon: 'fa fa-newspaper-o',
         title: 'Loss of Documents',
         text: 'Apply for loss of documents request now and obtain an affidavit',
-        price: '7,500',
+        price: '4,000',
         to:'/dashboard/loss-of-docs'
 
     },
@@ -85,14 +84,21 @@ const service_data = [
         icon: 'fa fa-bullhorn',
         title: 'Public Notice',
         text: 'Start your public notice by signing up and filling the forms on your dashboard',
-        price: '7,500',
+        price: '4,000',
         to:'/dashboard/public-notice'
     },
     {
         icon: 'fa-solid fa-id-card',
         title: 'Correction of name/age',
         text: 'You can now apply for correction of names/age and obtain approved documents',
-        price: '4,000',
+        price: '3,000',
+        to:'/dashboard/correction-of-name-age'
+    },
+    {
+        icon: 'fa-solid fa-id-card',
+        title: 'Company Trustees',
+        text: 'You can now apply for correction of names/age and obtain approved documents',
+        price: '15,000',
         to:'/dashboard/correction-of-name-age'
     },
 ]
@@ -154,55 +160,6 @@ const Services = () => {
     )
 }
 
-const pricing_data = [
-    {
-        service: 'Loss of Documents',
-        price: '7,500'
-    },
-    {
-        service: 'Change of Names',
-        price: '3,000'
-    },
-    {
-        service: 'Correction of name/age',
-        price: '4,000'
-    },
-    {
-        service: 'Company Trustees',
-        price: '15,000'
-    }
-]
-
-const Pricing = () => {
-
-    return (
-        <section className="max-w-xl px-4 ss:px-8 mx-auto px-8 py-[5rem]">
-            <header className="mb-16 text-center max-w-[35rem] mx-auto">
-                <h2 className="text-[24px] text-sec font-bold">Do It Yourself</h2>
-                <h1 className="text-[32px] ss:text-[40px] text-primary font-bold">Our Price Lists</h1>
-                <p className="text-[18px] ss:text-[20px]">Feel free to choose the one that best suits your context and purpose.</p>
-            </header>
-            <div className="flex flex-col ss:flex-row gap-x-5 gap-y-8 mx-auto max-w-[60rem]">
-                {
-                    pricing_data.map((d, i) => (
-                        <article key={i} className="text-center bg-[#f8f8f8] w-full max-w-[300px] mx-auto box-shadow">
-                            <h1 className="font-bold text-[17px] my-3 py-2 ">{d.service}</h1>
-                            <h2 className="text-[36px] my-4 font-semibold text-primary">₦{d.price}</h2>
-                            <button className="py-2 w-full px-2 mt-3 text-center text-white bg-primary hover:bg-[#310077] rounded-[4px]">Purchase</button>
-                        </article>
-                    ))
-                }
-            </div>
-            <div className="pt-24" id="contact-us">
-                <h1 className="text-[28px] text-center text-sec mb-2">Call for Enquires</h1>
-                <div className="max-w-max mx-auto flex gap-x-3 gap-y-3 flex-wrap text-center justify-center">
-                    <p>Lagos: <a href="tel:+2348067807679" className="hover:text-primary font-semibold">08067807679</a></p>
-                    <p>Awka: <a href="tel:+2348162662668" className="hover:text-primary font-semibold">08162662668</a></p>
-                </div>
-            </div>
-        </section>
-    )
-}
 
 const hwt_data = [
     "Click on the start button to sign up with your credentials",
