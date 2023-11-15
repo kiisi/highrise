@@ -11,7 +11,7 @@ const Navbar = () => {
 
   const [click, setClick] = useState(false)
 
-  const clickHandler = (val) => setClick(val)
+  const toggleHandler = () => setClick(prev => !prev)
 
   const navRef = useRef()
 
@@ -38,34 +38,38 @@ const Navbar = () => {
           </div>
           <div className="items-center gap-x-5 hidden ss:flex cursor-pointer">
             <Link to='/'>Home</Link>
-            <a href='#about'>About</a>
-            <a href="#contact-us">Contact us</a>
+            <a href='/#about'>About</a>
+            <a href="/#contact-us">Contact us</a>
             {
               state?.user ?
-                <Link to="/dashboard"><Button className="ml-8">Dashboard</Button></Link>
+                <Link to="/dashboard">
+                  <Button className="ml-8">Dashboard</Button>
+                </Link>
                 :
                 <>
                   <Link to="/signup" className="mr-8">Sign up</Link>
-                  <Link to="/login"><Button>Login</Button></Link>
+                  <Link to="/login">
+                    <Button>Login</Button>
+                  </Link>
                 </>
             }
           </div>
-          <span className="material-icons ss:hidden cursor-pointer" onClick={() => clickHandler(true)}>menu</span>
+          <span className="material-icons ss:hidden cursor-pointer" onClick={toggleHandler}>menu</span>
         </div>
       </nav>
 
       <aside className={`fixed max-w-[300px] flex flex-col gap-y-6 w-full h-full bg-white navbar-mobile-sidebar ${click ? "active" : ""} top-0 z-[99999]`}>
         <div className="p-4 flex justify-end">
-          <span className="material-icons" onClick={() => clickHandler(false)}>close</span>
+          <span className="material-icons" onClick={toggleHandler}>close</span>
         </div>
         <div className="pr-3 pl-10 flex">
-          <a>Home</a>
+          <Link to='/' onClick={toggleHandler}>Home</Link>
         </div>
         <div className="pr-3 pl-10 flex">
-          <a>About</a>
+          <a href='/#about' onClick={toggleHandler}>About</a>
         </div>
         <div className="pr-3 pl-10 flex">
-          <a>Contact us</a>
+          <a href="/#contact-us" onClick={toggleHandler}>Contact us</a>
         </div>
         {
           state?.user ?
@@ -73,19 +77,17 @@ const Navbar = () => {
             :
             <>
               <div className="pr-3 pl-10 flex">
-                <Link>Sign up</Link>
+                <Link to='/signup' onClick={toggleHandler}>Sign up</Link>
               </div>
               <div className="pr-3 pl-10 flex">
-                <Link to="/login"><Button>Login</Button></Link>
+                <Link to="/login" onClick={toggleHandler}><Button>Login</Button></Link>
               </div>
             </>
         }
       </aside>
-
       {
-        click ? <div className="fixed w-full h-full right-0 top-0 bg-[#0000004d] z-[88888]" onClick={() => clickHandler(false)}></div> : null
+        click ? <div className="fixed w-full h-full right-0 top-0 bg-[#0000004d] z-[88888]" onClick={toggleHandler}></div> : null
       }
-
     </>
   )
 }

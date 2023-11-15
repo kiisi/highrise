@@ -51,9 +51,13 @@ const Hero = () => {
             <div className="max-w-[40rem] mt-14">
                 <h1 className="text-[36px] ss:text-[55px] font-bold">Highrise <span className="text-sec">News</span>paper</h1>
                 <p className="my-4 text-[18px] ss:text-[20px]">With HighRise you can now apply for change of names, apply affidavit for declaration of age, loss of documents etc from your bed!!!</p>
-                <div className='flex gap-x-2 mt-5'>
-                <Link to="/signup"><Button>Get Started</Button></Link>
-                <Link to="/verification"><Button className="bg-white !text-primary border-[1px] border-primary font-semibold hover:!text-white">Start Verification</Button></Link>
+                <div className='flex gap-x-2 gap-y-4 mt-5 flex-wrap'>
+                    <Link to="/signup" className="block w-full min-[500px]:w-fit">
+                        <Button className="w-full ">Get Started</Button>
+                    </Link>
+                    <Link to="/verification" className="block w-full min-[500px]:w-fit">
+                        <Button className="w-full bg-white !text-primary border-[1px] border-primary font-semibold hover:!text-white">Start Verification</Button>
+                    </Link>
                 </div>
             </div>
             <div>
@@ -70,14 +74,14 @@ const service_data = [
         title: 'Change of Names',
         text: 'You can now apply for change of names and obtain approved documents',
         price: '3,000',
-        to:'/dashboard/change-of-name'
+        to: '/dashboard/change-of-name'
     },
     {
         icon: 'fa fa-newspaper-o',
         title: 'Loss of Documents',
         text: 'Apply for loss of documents request now and obtain an affidavit',
         price: '4,000',
-        to:'/dashboard/loss-of-docs'
+        to: '/dashboard/loss-of-docs'
 
     },
     {
@@ -85,21 +89,21 @@ const service_data = [
         title: 'Public Notice',
         text: 'Start your public notice by signing up and filling the forms on your dashboard',
         price: '4,000',
-        to:'/dashboard/public-notice'
+        to: '/dashboard/public-notice'
     },
     {
         icon: 'fa-solid fa-id-card',
         title: 'Correction of name/age',
         text: 'You can now apply for correction of names/age and obtain approved documents',
         price: '3,000',
-        to:'/dashboard/correction-of-name-age'
+        to: '/dashboard/correction-of-name-age'
     },
     {
         icon: 'fa-solid fa-id-card',
         title: 'Company Trustees',
         text: 'You can now apply for correction of names/age and obtain approved documents',
         price: '15,000',
-        to:'/dashboard/correction-of-name-age'
+        to: '/dashboard/correction-of-name-age'
     },
 ]
 

@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Link, useNavigate } from 'react-router-dom'
-import { base_endpoint } from '../utils/endpoints'
 import { useUserContext } from '../context/userContext'
 import { useState } from 'react'
 
@@ -39,16 +38,9 @@ const Dashboard = ({ children }) => {
 
     const logout = async () => {
 
-        try {
-            const res = await fetch(`${base_endpoint}/auth/logout`, { credentials: 'include' })
-            const result = await res.json()
-            if (result.success) {
-                dispatch({ type:"USER", payload: null })
-                return navigate('/')
-            }
-        } catch (err) {
-            console.log(err)
-        }
+        dispatch({ type:"USER", payload: null })
+        localStorage.clear()
+        navigate('/')
     }
 
     const [profilePics, setProfilePics] = useState(null)

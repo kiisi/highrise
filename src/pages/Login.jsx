@@ -5,27 +5,24 @@ import Navbar from "../layout/Navbar"
 import google_icon from '../assets/google.svg'
 import { useGoogleLogin } from '@react-oauth/google';
 import { useRef, useState } from 'react'
-import { base_endpoint } from "../utils/endpoints"
 import Spinner from "../components/Spinner"
 import { Helmet } from "react-helmet";
 import { toast } from 'react-toastify';
 import validator from 'validator';
-import { useUserContext } from '../context/userContext'
-import { requestEmailOtp } from "../utils"
+import authService from "../services/auth"
 
 
 const Login = () => {
 
   const navigate = useNavigate()
-  const { dispatch } = useUserContext()
 
   const emailRef = useRef()
   const passwordRef = useRef()
   const [loading, setLoading] = useState(false)
 
-   const passwordAuth = () =>{
+  const passwordAuth = () => {
     submit({
-      email:emailRef.current.value,
+      email: emailRef.current.value,
       password: passwordRef.current.value,
       auth_type: "password"
     })
@@ -41,7 +38,7 @@ const Login = () => {
       const userInfo = await res.json()
       // Google Auth
       await submit({
-        email:userInfo.email,
+        email: userInfo.email,
         auth_type: "google"
       })
     },
@@ -51,62 +48,37 @@ const Login = () => {
     },
   });
 
-  const submit = async (body) =>{
+  const submit = async (body) => {
 
-    if(!validator.isEmail(body.email)){
+    if (!validator.isEmail(body.email)) {
       return toast.error("Invalid Email")
     }
 
-    if(body.auth_type === "password"){
-      if(body.password.trim() === ''){
+    if (body.auth_type === "password") {
+      if (body.password.trim() === '') {
         return toast.error("Password is required!")
       }
     }
 
-    let url = `${base_endpoint}/auth/login`
 
-    const settings = {
-      method: "post",
-      credentials: 'include',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    };
+    try {
 
-    setLoading(true)
+      setLoading(true)
+      let response = await authService.login(body)
+      console.log(response)
 
-    try{
-
-      let response = await fetch(url, settings)
-      let result = await response.json()
-
-      setLoading(false)
-      console.log(result)
-
-      if(result.success && result.verified_email === true){
-
-        toast.success(result.success)
-        dispatch({ type:"USER", payload: result.data })
-        navigate('/dashboard')
-
-      }else if(result.error && result.verified_email === false){
-
-        toast.error(result.error)
-        requestEmailOtp({email: result.data.email})
-        dispatch({type: "VERIFICATION_EMAIL", payload: {email: result.data.email}})
-        navigate('/verify-account')
-
-      }
-      else{
-        toast.error(result.error)
-      }
-    }catch(err){
+      localStorage.setItem("token", response.data.token)
+      toast.success(response.data.success)
+      navigate('/dashboard')
+    }
+    catch (err) {
+      console.log(err)
       toast.error("An error occurred")
-      setLoading(false)
       console.log(err)
     }
-
+    finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -115,7 +87,7 @@ const Login = () => {
         <title>Highrise Login</title>
       </Helmet>
       <Navbar />
-      {loading ? <Spinner/> : null}
+      {loading ? <Spinner /> : null}
       <main className="flex pt-16 pb-16 gap-x-16 px-4 ss:px-8 mx-auto max-w-xl page-offset">
 
         <div className="max-w-[30rem] pt-16 hidden ss:block flex-1">
@@ -129,10 +101,10 @@ const Login = () => {
           </header>
           <div className="max-w-[30rem]">
             <fieldset className="mb-10">
-              <Input type="email" label="Email" ref={emailRef}/>
+              <Input type="email" label="Email" ref={emailRef} />
             </fieldset>
             <fieldset className="mb-10">
-              <Input type="password" label="Password" ref={passwordRef}/>
+              <Input type="password" label="Password" ref={passwordRef} />
             </fieldset>
             <Button onClick={passwordAuth}>Login</Button>
 

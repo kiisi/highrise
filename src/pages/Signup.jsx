@@ -5,17 +5,14 @@ import Navbar from '../layout/Navbar'
 import google_icon from '../assets/google.svg'
 import { useRef, useState } from 'react'
 import { useGoogleLogin } from '@react-oauth/google';
-import { base_endpoint } from '../utils/endpoints'
 import Spinner from '../components/Spinner'
 import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify';
-import { requestEmailOtp } from '../utils'
-import { useUserContext } from '../context/userContext'
+import authService from '../services/auth'
 
 const Signup = () => {
 
   const navigate = useNavigate()
-  const { dispatch } = useUserContext()
 
   const fullNameRef = useRef()
   const emailRef = useRef()
@@ -57,40 +54,22 @@ const Signup = () => {
   const submit = async (body) => {
     console.log(body)
 
-    let url = `${base_endpoint}/auth/signup`
-
-    const settings = {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    };
-
     setLoading(true)
 
     try {
 
-      let response = await fetch(url, settings)
-      let result = await response.json()
-      console.log(result)
+      let response = await authService.register(body)
+      console.log(response)
+      toast.success(response.data.success)
+      navigate('/login')
+    }
+    catch (err) {
+      toast.error("An error occurred!")
+    }
+    finally {
       setLoading(false)
-
-      if (result.success) {
-        toast.success(result.success)
-        requestEmailOtp({email: result.data.email})
-        dispatch({type: "VERIFICATION_EMAIL", payload: {email: result.data.email}})
-        navigate('/verify-account')
-      } else {
-        toast.error(result.error)
-      }
-
-    } catch (err) {
-      setLoading(false)
-      toast.error("A error occurred!")
     }
   }
-
 
   return (
     <>

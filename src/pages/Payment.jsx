@@ -51,13 +51,15 @@ const Payment = () => {
     const serviceType = state.service.type
     const serviceRoute = state.service.route
     const name = state.user.full_name
-    const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
+    // const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
+    const publicKey = "pk_test_1dbe7c288b9d924fa7f0e9793b1470d186c01f19"
 
     const componentProps = {
         email,
         amount: amount * 100,
         metadata: {
-            name
+            name,
+            phone: 9155958012
         },
         publicKey,
         text: "Pay Now",
@@ -80,6 +82,8 @@ const Payment = () => {
         },
         onClose: () => console.log("Close"),
     }
+
+    console.log(componentProps)
 
 
     return (

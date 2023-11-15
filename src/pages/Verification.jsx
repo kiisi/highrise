@@ -178,8 +178,9 @@ const VerifyView = ({ setView, setInfo }) => {
     const email = state ? state.data.user.email : "Invalid"
     const amount = state ? state.cost : "Invalid"
     const name = state ? state.data.user.full_name : "Invalid"
-    const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
-
+    // const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
+    const publicKey = "pk_test_1dbe7c288b9d924fa7f0e9793b1470d186c01f19"
+    
     const componentProps = {
         email,
         amount: amount * 100,
@@ -263,7 +264,7 @@ const DetailsView = ({ info, setView }) => {
                                 <i className="fa-solid fa-xmark cursor-pointer text-[20px]" onClick={changeView}></i>
                             </div>
                             <figure className="flex justify-center">
-                                <img src={logo} alt="HerCode Logo" className="h-[50px]" />
+                                <img src={logo} alt="Logo" className="h-[50px]" />
                             </figure>
                         </header>
                         <div className="pt-8 flex flex-col gap-y-4">
@@ -319,7 +320,7 @@ const DetailsView = ({ info, setView }) => {
                                 <div className="pt-1 px-2 font-bold">
                                     <h1>Passport</h1>
                                 </div>
-                                <div className="py-1 px-2">
+                                <div className="py-1 px-2 flex justify-center">
                                     <img src={state.data.service.passport} alt="Passport" />
                                 </div>
                             </div>
@@ -361,7 +362,7 @@ const DetailsView = ({ info, setView }) => {
                                 <i className="fa-solid fa-xmark cursor-pointer text-[20px]" onClick={changeView}></i>
                             </div>
                             <figure className="flex justify-center">
-                                <img src={logo} alt="HerCode Logo" className="h-[50px]" />
+                                <img src={logo} alt="Logo" className="h-[50px]" />
                             </figure>
                         </header>
                         <div className="pt-8 flex flex-col gap-y-4">
@@ -409,7 +410,7 @@ const DetailsView = ({ info, setView }) => {
                                 <div className="pt-1 px-2 font-bold">
                                     <h1>Passport</h1>
                                 </div>
-                                <div className="py-1 px-2">
+                                <div className="py-1 px-2 flex justify-center">
                                     <img src={state.data.service.passport} alt="Passport" />
                                 </div>
                             </div>
@@ -491,7 +492,7 @@ const DetailsView = ({ info, setView }) => {
                                 <div className="pt-1 px-2 font-bold">
                                     <h1>Passport</h1>
                                 </div>
-                                <div className="py-1 px-2">
+                                <div className="py-1 px-2 flex justify-center">
                                     <img src={state.data.service.passport} alt="Passport" />
                                 </div>
                             </div>
@@ -589,7 +590,7 @@ const DetailsView = ({ info, setView }) => {
                                 <div className="pt-1 px-2 font-bold">
                                     <h1>Passport</h1>
                                 </div>
-                                <div className="py-1 px-2">
+                                <div className="py-1 px-2 flex justify-center">
                                     <img src={state.data.service.passport} alt="Passport" />
                                 </div>
                             </div>

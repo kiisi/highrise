@@ -249,3 +249,7 @@ input[type=number]::-webkit-outer-spin-button {
   background-image: url("./assets/highrise-verify-bg.jpg");
   background-size: cover;
 }
+
+.material-icons{
+  cursor: pointer;
+}
