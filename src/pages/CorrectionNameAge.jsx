@@ -211,7 +211,7 @@ const CorrectionNameAge = () => {
                                 <Input label="Email" type="email" ref={emailRef} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
-                                <Input label="Amount (₦)" type="number" ref={amountRef} readOnly={true} defaultValue={4000} />
+                                <Input label="Amount (₦)" type="number" ref={amountRef} readOnly={true} defaultValue={3000} />
                             </fieldset>
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="Phone number" type="number" min={0} ref={numberRef} />

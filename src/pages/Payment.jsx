@@ -96,7 +96,7 @@ const Payment = () => {
                     <h1 className="text-primary text-[24px] font-bold">Highrise Checkout</h1>
                 </header>
                 <section className="pt-[50px] pr-[35px] pb-[22px] pl-[38px]">
-                    <div className="bg-[#fff]">
+                    <div className="bg-[#fff] p-10">
                         <div className="flex flex-wrap gap-x-10 gap-y-10">
                             <fieldset className="max-w-[400px] w-full">
                                 <Input label="Service" type="text" defaultValue={serviceType} readOnly={true} />

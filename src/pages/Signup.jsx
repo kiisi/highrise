@@ -2,9 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import Navbar from '../layout/Navbar'
-import google_icon from '../assets/google.svg'
 import { useRef, useState } from 'react'
-import { useGoogleLogin } from '@react-oauth/google';
 import Spinner from '../components/Spinner'
 import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify';
@@ -28,28 +26,6 @@ const Signup = () => {
     })
   }
 
-  const googleLogin = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      console.log(tokenResponse);
-      const res = await fetch(
-        'https://www.googleapis.com/oauth2/v3/userinfo',
-        { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } },
-      );
-
-      const userInfo = await res.json()
-      console.log(userInfo)
-      // Google Auth
-      await submit({
-        auth_type: "google",
-        full_name: userInfo.name,
-        email: userInfo.email
-      })
-    },
-    onError: errorResponse => {
-      console.log(errorResponse)
-      toast.error("Google auth failed!")
-    },
-  });
 
   const submit = async (body) => {
     console.log(body)
@@ -100,15 +76,12 @@ const Signup = () => {
               <fieldset className="mb-10">
                 <Input type="password" label="Password" ref={passwordRef} />
               </fieldset>
-
-              <Button onClick={passwordAuth}>Get Started</Button>
-
+              <Button
+                onClick={passwordAuth}
+              >
+                Get Started
+              </Button>
               <p className="mt-5">Already have an account? <Link className="text-primary" to='/login'>Login</Link></p>
-              <button onClick={googleLogin} className="flex mt-5 gap-x-4 items-center box-shadow-1 p-3 rounded-[4px]">
-                <img src={google_icon} alt="Google Sign in" className="!h-[25px]" />
-                <span>Sign up with Google</span>
-              </button>
-
             </div>
           </div>
         </main>

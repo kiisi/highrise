@@ -20,12 +20,13 @@ import Affidavit from './pages/Affidavit';
 import VerifyAccount from './pages/VerifyAccount';
 import Payment from './pages/Payment';
 import ErrorBoundary from './pages/ErrorBoundary';
-import Notification from './pages/Notification';
+import Notification from './pages/notification';
 import Verification from './pages/Verification';
 import CorrectionNameAge from './pages/CorrectionNameAge';
 import authService from './services/auth';
 import { useEffect, useState } from 'react';
 import { useUserContext } from './context/userContext';
+import AllDocs from './pages/AllDocs';
 
 const Root = () => {
 
@@ -123,13 +124,7 @@ const router = createBrowserRouter([
       },
       {
         path: "signup",
-        element: (
-          <GoogleOAuthProvider
-            clientId="563446519928-207jhmp7apj04ocfr7qqm7rbqpfbuvki.apps.googleusercontent.com"
-          >
-            <Signup />
-          </GoogleOAuthProvider>
-        ),
+        element: <Signup />
       },
       {
         path: "verify-account",
@@ -138,6 +133,10 @@ const router = createBrowserRouter([
       {
         path: "verification",
         element: <Verification />,
+      },
+      {
+        path: "all-docs",
+        element: <AllDocs />,
       },
     ]
   },

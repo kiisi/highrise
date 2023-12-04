@@ -34,10 +34,10 @@ const Navbar = () => {
       <nav ref={navRef}>
         <div className="w-full max-w-xl px-4 ss:px-8 py-4 flex justify-between items-center mx-auto">
           <div>
-            <img src={logo} alt="HerCode Logo" className="h-[50px]" />
+            <img src={logo} alt="Logo" className="h-[50px]" />
           </div>
           <div className="items-center gap-x-5 hidden ss:flex cursor-pointer">
-            <Link to='/'>Home</Link>
+            <a href='https://highrisenews.com/'>Home</a>
             <a href='/#about'>About</a>
             <a href="/#contact-us">Contact us</a>
             {

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const request = axios.create({
-    baseURL: "http://localhost:5000"
-    // baseURL: "https://maroon-crab-hat.cyclic.app"
+    // baseURL: "http://localhost:5000"
+    baseURL: "https://maroon-crab-hat.cyclic.app"
 });
 
 request.interceptors.request.use(
@@ -21,14 +21,12 @@ request.interceptors.request.use(
 
 function errorHandler(error) {
     console.log("Axios Error Handler: ", error)
-    // if (error?.response) {
-    //     if (error?.response?.status === 403) {
-    //     } else if (error?.response?.status === 401) {
-    //         removeCookie("user");
-    //         removeCookie("access_token");
-    //         window.location.replace("/get-started");
-    //     }
-    // }
+    if (error?.response) {
+        if (error?.response?.status === 403 || error?.response?.status === 401) {
+            // window.location.reload();
+            window.location.replace("/login");
+        }
+    }
 
     return Promise.reject(error.response);
 }

@@ -249,6 +249,7 @@ const VerifyView = ({ setView, setInfo }) => {
 const DetailsView = ({ info, setView }) => {
 
     let state = info
+    console.log(state)
 
     const changeView = () =>{
         setView(VIEWS.DEFAULT_VIEW)
@@ -281,7 +282,7 @@ const DetailsView = ({ info, setView }) => {
                                     <h1>Old Name:</h1>
                                 </div>
                                 <div className="py-1 px-2">
-                                    <p>{state.data.service.new_name}</p>
+                                    <p>{state.data.service.old_name}</p>
                                 </div>
                             </div>
                             <div className="bg-[#F6F9FC] box-shadow-1">
@@ -289,7 +290,7 @@ const DetailsView = ({ info, setView }) => {
                                     <h1>New Name:</h1>
                                 </div>
                                 <div className="py-1 px-2">
-                                    <p>{state.data.service.old_name}</p>
+                                    <p>{state.data.service.new_name}</p>
                                 </div>
                             </div>
                             <div className="bg-[#F6F9FC] box-shadow-1">
